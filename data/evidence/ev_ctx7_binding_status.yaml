@@ -1,0 +1,11 @@
+id: ev_ctx7_binding_status
+subject_id: bnd_context7_remote_mcp
+claim_path: /status
+source_url: https://context7.com/docs/resources/all-clients
+source_type: official_docs
+source_grade: A
+verification_state: verified
+verified_at: '2026-10-27T00:00:00Z'
+source_locator: Remote MCP endpoint, supported OAuth/API key methods, tool names and
+  invocation requirements
+verification_method: manual_review

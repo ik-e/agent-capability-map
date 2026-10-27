@@ -1,0 +1,21 @@
+id: op_tavily_web_search
+name: 웹 검색 및 출처 후보 수집
+purpose: 자연어 질의에 관련된 웹 결과를 찾아 URL, 제목, 요약 및 선택적 본문 조각을 반환합니다.
+category_ids: [web-research]
+aliases: [search the web for sources, internet search, find recent web pages]
+entity_types: [web-page, search-result]
+inputs:
+  - name: query
+    type: string
+    required: true
+    description: 검색할 질의입니다.
+  - name: max_results
+    type: integer
+    required: false
+    description: 반환할 최대 결과 수입니다.
+outputs:
+  - name: results
+    type: array
+    description: 관련 웹 결과와 선택된 콘텐츠입니다.
+effect: read
+status: active

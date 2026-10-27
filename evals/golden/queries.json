@@ -59,6 +59,55 @@
       "expected_bindings": {"op_list_github_pull_requests": "bnd_github_rest"}
     },
     {
+      "id": "discover-mcp-servers",
+      "query": "discover MCP servers in the registry",
+      "filters": {"resource_kind": "http_api", "transport": "http", "effect": "read"},
+      "expected_ids": ["op_search_mcp_servers"],
+      "expected_bindings": {"op_search_mcp_servers": "bnd_mcp_registry_http"}
+    },
+    {
+      "id": "find-library-documentation",
+      "query": "find current SDK documentation and examples",
+      "filters": {"resource_kind": "mcp_server", "transport": "streamable_http", "effect": "read"},
+      "expected_ids": ["op_context7_query_docs"],
+      "expected_bindings": {"op_context7_query_docs": "bnd_context7_remote_mcp"}
+    },
+    {
+      "id": "search-the-web",
+      "query": "search the web for sources",
+      "filters": {"resource_kind": "http_api", "auth_schemes": "bearer", "effect": "read"},
+      "expected_ids": ["op_tavily_web_search"],
+      "expected_bindings": {"op_tavily_web_search": "bnd_tavily_web_http"}
+    },
+    {
+      "id": "extract-url-content",
+      "query": "read a URL as markdown",
+      "filters": {"resource_kind": "http_api", "effect": "read"},
+      "expected_ids": ["op_tavily_extract_url"],
+      "expected_bindings": {"op_tavily_extract_url": "bnd_tavily_web_http"}
+    },
+    {
+      "id": "search-hub-models",
+      "query": "find an embedding model on Hugging Face",
+      "filters": {"resource_kind": "http_api", "transport": "http"},
+      "expected_ids": ["op_search_huggingface_models"],
+      "expected_bindings": {"op_search_huggingface_models": "bnd_huggingface_hub_api"}
+    },
+    {
+      "id": "read-github-file",
+      "query": "read a repository file from GitHub",
+      "filters": {"resource_kind": "http_api", "effect": "read"},
+      "expected_ids": ["op_get_github_repo_content"],
+      "expected_bindings": {"op_get_github_repo_content": "bnd_github_rest"}
+    },
+    {
+      "id": "geocode-place",
+      "query": "find coordinates by city name",
+      "filters": {"resource_kind": "http_api", "auth_schemes": "none"},
+      "expected_ids": ["op_search_geocoding"],
+      "expected_bindings": {"op_search_geocoding": "bnd_open_meteo_geocoding_http"}
+    },
+    {
       "id": "no-match-audio-transcription",
       "query": "transcribe an audio recording",
       "filters": {},

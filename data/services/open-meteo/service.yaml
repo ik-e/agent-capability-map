@@ -11,6 +11,11 @@ integrations:
     name: Weather Forecast API
     summary: Query forecast variables by geographic coordinates and time range.
     status: active
+  - id: int_open_meteo_geocoding
+    service_id: svc_open_meteo
+    name: Geocoding API
+    summary: Resolve a place name or postal code to matching locations and coordinates.
+    status: active
 bindings:
   - id: bnd_open_meteo_forecast_http
     integration_id: int_open_meteo_forecast
@@ -33,3 +38,20 @@ bindings:
         native_ref:
           kind: http_operation
           value: GET /forecast?hourly=temperature_2m
+  - id: bnd_open_meteo_geocoding_http
+    integration_id: int_open_meteo_geocoding
+    resource_kind: http_api
+    name: Geocoding HTTP API
+    locations:
+      docs_url:
+        url: https://open-meteo.com/en/docs/geocoding-api
+      api_base_url:
+        url: https://geocoding-api.open-meteo.com/v1
+    transport: http
+    auth_schemes: [none]
+    status: active
+    operation_refs:
+      - operation_id: op_search_geocoding
+        native_ref:
+          kind: http_operation
+          value: GET /search?name={name}

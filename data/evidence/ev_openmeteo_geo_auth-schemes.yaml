@@ -1,0 +1,10 @@
+id: ev_openmeteo_geo_auth_schemes
+subject_id: bnd_open_meteo_geocoding_http
+claim_path: /auth_schemes
+source_url: https://open-meteo.com/en/docs/geocoding-api
+source_type: official_docs
+source_grade: A
+verification_state: verified
+verified_at: '2026-10-27T00:00:00Z'
+source_locator: Geocoding endpoint, name/count parameters, response and public access
+verification_method: manual_review

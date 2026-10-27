@@ -1,0 +1,10 @@
+id: ev_mcp_registry_spec_locations_api_spec_url_url
+subject_id: bnd_mcp_registry_http
+claim_path: /locations/api_spec_url/url
+source_url: https://github.com/modelcontextprotocol/registry/blob/main/docs/reference/api/openapi.yaml
+source_type: official_docs
+source_grade: A
+verification_state: verified
+verified_at: '2026-10-27T00:00:00Z'
+source_locator: Official registry OpenAPI definition
+verification_method: manual_review

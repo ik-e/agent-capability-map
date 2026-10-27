@@ -1,0 +1,10 @@
+id: ev_tavily_api_locations_docs_url_url
+subject_id: bnd_tavily_web_http
+claim_path: /locations/docs_url/url
+source_url: https://docs.tavily.com/documentation/api-reference/introduction
+source_type: official_docs
+source_grade: A
+verification_state: verified
+verified_at: '2026-10-27T00:00:00Z'
+source_locator: Tavily API base URL, authentication and HTTP API overview
+verification_method: manual_review

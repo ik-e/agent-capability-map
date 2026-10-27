@@ -8,3 +8,13 @@
   label: 풀 리퀘스트
 - id: ai-generation
   label: AI 모델 생성
+- id: web-research
+  label: 웹 조사
+- id: mcp-discovery
+  label: MCP 서버 발견
+- id: model-discovery
+  label: 모델·데이터셋 발견
+- id: document-retrieval
+  label: 문서 검색·RAG
+- id: geocoding
+  label: 지오코딩

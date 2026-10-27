@@ -1,0 +1,21 @@
+id: op_context7_resolve_library
+name: 라이브러리 문서 식별자 확인
+purpose: 라이브러리 이름과 질문을 바탕으로 Context7 문서 조회에 사용할 라이브러리 ID 후보를 찾습니다.
+category_ids: [document-retrieval]
+aliases: [resolve library documentation, find Context7 library ID]
+entity_types: [software-library]
+inputs:
+  - name: libraryName
+    type: string
+    required: true
+    description: 공식 표기법을 사용한 라이브러리 이름입니다.
+  - name: query
+    type: string
+    required: true
+    description: 필요한 기술 주제이며 결과 순위에 사용됩니다.
+outputs:
+  - name: library_matches
+    type: array
+    description: Context7 호환 라이브러리 ID와 선택된 메타데이터입니다.
+effect: read
+status: active

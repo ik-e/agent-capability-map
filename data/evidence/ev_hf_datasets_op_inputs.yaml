@@ -1,0 +1,10 @@
+id: ev_hf_datasets_op_inputs
+subject_id: op_search_huggingface_datasets
+claim_path: /inputs
+source_url: https://huggingface.co/docs/hub/en/api
+source_type: official_docs
+source_grade: A
+verification_state: verified
+verified_at: '2026-10-27T00:00:00Z'
+source_locator: Dataset list/search endpoint and supported filters
+verification_method: manual_review

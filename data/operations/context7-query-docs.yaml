@@ -1,0 +1,25 @@
+id: op_context7_query_docs
+name: 라이브러리 문서 질의
+purpose: 지정한 라이브러리 ID와 주제에 맞는 최신 문서 조각과 코드 예제를 가져옵니다.
+category_ids: [document-retrieval]
+aliases: [query library documentation, get current SDK docs and examples]
+entity_types: [software-documentation, code-example]
+inputs:
+  - name: libraryId
+    type: string
+    required: true
+    description: Context7 호환 라이브러리 식별자입니다. 필요하면 먼저 resolve-library-id를 호출합니다.
+  - name: query
+    type: string
+    required: true
+    description: 조회할 단일 기술 주제입니다.
+  - name: language
+    type: string
+    required: false
+    description: 예제 순위에 사용할 프로그래밍 언어입니다.
+outputs:
+  - name: documentation_context
+    type: array
+    description: 관련 문서와 예제 조각입니다.
+effect: read
+status: active

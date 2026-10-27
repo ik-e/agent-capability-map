@@ -1,0 +1,10 @@
+id: ev_hf_spec_locations_api_spec_url_url
+subject_id: bnd_huggingface_hub_api
+claim_path: /locations/api_spec_url/url
+source_url: https://huggingface.co/.well-known/openapi.json
+source_type: official_docs
+source_grade: A
+verification_state: verified
+verified_at: '2026-10-27T00:00:00Z'
+source_locator: Official Hub API OpenAPI specification
+verification_method: manual_review

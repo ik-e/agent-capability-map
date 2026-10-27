@@ -1,0 +1,21 @@
+id: op_get_mcp_server_version
+name: MCP 서버 버전 메타데이터 조회
+purpose: Registry에 게시된 특정 MCP 서버 버전의 배포 패키지와 연결 메타데이터를 확인합니다.
+category_ids: [mcp-discovery]
+aliases: [get MCP server metadata, inspect MCP server version]
+entity_types: [mcp-server, software-package]
+inputs:
+  - name: server_name
+    type: string
+    required: true
+    description: Registry의 네임스페이스 포함 서버 이름입니다.
+  - name: version
+    type: string
+    required: true
+    description: 조회할 버전 또는 latest입니다.
+outputs:
+  - name: server_version
+    type: object
+    description: 서버 버전과 배포 위치 메타데이터입니다.
+effect: read
+status: active

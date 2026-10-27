@@ -1,0 +1,10 @@
+id: ev_ctx7_query_inputs
+subject_id: op_context7_query_docs
+claim_path: /inputs
+source_url: https://context7.com/docs/api-guide
+source_type: official_docs
+source_grade: A
+verification_state: verified
+verified_at: '2026-10-27T00:00:00Z'
+source_locator: query-docs parameters and documentation context response
+verification_method: manual_review

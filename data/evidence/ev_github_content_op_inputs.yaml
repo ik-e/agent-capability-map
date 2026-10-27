@@ -1,0 +1,10 @@
+id: ev_github_content_op_inputs
+subject_id: op_get_github_repo_content
+claim_path: /inputs
+source_url: https://docs.github.com/en/rest/repos/contents
+source_type: official_docs
+source_grade: A
+verification_state: verified
+verified_at: '2026-10-27T00:00:00Z'
+source_locator: 'Get repository content: request inputs and read behavior'
+verification_method: manual_review

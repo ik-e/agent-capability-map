@@ -1,0 +1,37 @@
+service:
+  id: svc_huggingface_hub
+  name: Hugging Face Hub
+  provider_name: Hugging Face
+  summary: Host and discovery platform for machine-learning models, datasets, and applications.
+  homepage_url: https://huggingface.co/
+  status: active
+integrations:
+  - id: int_huggingface_hub_api
+    service_id: svc_huggingface_hub
+    name: Hub API
+    summary: Discover and inspect public model and dataset repositories.
+    status: active
+bindings:
+  - id: bnd_huggingface_hub_api
+    integration_id: int_huggingface_hub_api
+    resource_kind: http_api
+    name: Hugging Face Hub HTTP API
+    locations:
+      docs_url:
+        url: https://huggingface.co/docs/hub/en/api
+      api_base_url:
+        url: https://huggingface.co/api
+      api_spec_url:
+        url: https://huggingface.co/.well-known/openapi.json
+    transport: http
+    auth_schemes: [none]
+    status: active
+    operation_refs:
+      - operation_id: op_search_huggingface_models
+        native_ref:
+          kind: http_operation
+          value: GET /models?search={search}
+      - operation_id: op_search_huggingface_datasets
+        native_ref:
+          kind: http_operation
+          value: GET /datasets?search={search}

@@ -9,7 +9,7 @@ integrations:
   - id: int_github_rest
     service_id: svc_github
     name: GitHub REST API
-    summary: Read repository, issue search, and pull request information over HTTPS.
+    summary: Read repository metadata and file contents, search issues, and list pull requests over HTTPS.
     status: active
   - id: int_github_mcp
     service_id: svc_github
@@ -43,6 +43,10 @@ bindings:
         native_ref:
           kind: http_operation
           value: GET /repos/{owner}/{repo}/pulls
+      - operation_id: op_get_github_repo_content
+        native_ref:
+          kind: http_operation
+          value: GET /repos/{owner}/{repo}/contents/{path}
   - id: bnd_github_mcp_local
     integration_id: int_github_mcp
     resource_kind: mcp_server

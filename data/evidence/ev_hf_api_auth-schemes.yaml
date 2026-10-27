@@ -1,0 +1,11 @@
+id: ev_hf_api_auth_schemes
+subject_id: bnd_huggingface_hub_api
+claim_path: /auth_schemes
+source_url: https://huggingface.co/docs/hub/en/api
+source_type: official_docs
+source_grade: A
+verification_state: verified
+verified_at: '2026-10-27T00:00:00Z'
+source_locator: Hub API and public repository listing/search endpoints, documented
+  OpenAPI location
+verification_method: manual_review

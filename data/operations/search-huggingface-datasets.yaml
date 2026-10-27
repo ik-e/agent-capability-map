@@ -1,0 +1,17 @@
+id: op_search_huggingface_datasets
+name: Hub 데이터셋 검색
+purpose: Hugging Face Hub에서 검색어와 조건에 맞는 데이터셋을 찾아 메타데이터와 데이터 카드로 비교합니다.
+category_ids: [model-discovery]
+aliases: [search Hugging Face datasets, find an evaluation dataset, discover datasets on the Hub]
+entity_types: [machine-learning-dataset]
+inputs:
+  - name: search
+    type: string
+    required: false
+    description: 데이터셋 검색어입니다.
+outputs:
+  - name: datasets
+    type: array
+    description: 검색 결과의 데이터셋 식별자와 선택된 메타데이터입니다.
+effect: read
+status: active

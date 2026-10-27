@@ -1,0 +1,10 @@
+id: ev_tavily_extract_op_effect
+subject_id: op_tavily_extract_url
+claim_path: /effect
+source_url: https://docs.tavily.com/documentation/api-reference/endpoint/extract
+source_type: official_docs
+source_grade: A
+verification_state: verified
+verified_at: '2026-10-27T00:00:00Z'
+source_locator: POST /extract request and response
+verification_method: manual_review

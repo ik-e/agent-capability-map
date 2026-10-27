@@ -1,0 +1,37 @@
+service:
+  id: svc_mcp_registry
+  name: Official MCP Registry
+  provider_name: Model Context Protocol project
+  summary: Community registry for discovering published MCP server metadata and package locations; it does not execute or certify listed servers.
+  homepage_url: https://registry.modelcontextprotocol.io/
+  status: active
+integrations:
+  - id: int_mcp_registry_read_api
+    service_id: svc_mcp_registry
+    name: Registry Read API
+    summary: Search and retrieve published MCP server and version metadata.
+    status: active
+bindings:
+  - id: bnd_mcp_registry_http
+    integration_id: int_mcp_registry_read_api
+    resource_kind: http_api
+    name: Official MCP Registry HTTP API
+    locations:
+      docs_url:
+        url: https://registry.modelcontextprotocol.io/docs
+      api_base_url:
+        url: https://registry.modelcontextprotocol.io/v0.1
+      api_spec_url:
+        url: https://github.com/modelcontextprotocol/registry/blob/main/docs/reference/api/openapi.yaml
+    transport: http
+    auth_schemes: [none]
+    status: active
+    operation_refs:
+      - operation_id: op_search_mcp_servers
+        native_ref:
+          kind: http_operation
+          value: GET /servers
+      - operation_id: op_get_mcp_server_version
+        native_ref:
+          kind: http_operation
+          value: GET /servers/{serverName}/versions/{version}

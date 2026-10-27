@@ -1,0 +1,21 @@
+id: op_tavily_extract_url
+name: URL 본문 추출
+purpose: 지정한 공개 웹 URL에서 페이지 콘텐츠를 추출해 텍스트 또는 Markdown으로 제공합니다.
+category_ids: [web-research, document-retrieval]
+aliases: [extract a web page, fetch page content, read URL as markdown]
+entity_types: [web-page, document-content]
+inputs:
+  - name: urls
+    type: array
+    required: true
+    description: 추출할 웹 페이지 URL 목록입니다.
+  - name: format
+    type: string
+    required: false
+    description: "지원되는 결과 형식(예: markdown)입니다."
+outputs:
+  - name: extracted_content
+    type: array
+    description: URL별 추출된 콘텐츠입니다.
+effect: read
+status: active

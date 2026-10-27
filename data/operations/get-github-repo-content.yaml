@@ -1,0 +1,25 @@
+id: op_get_github_repo_content
+name: 저장소 파일·디렉터리 내용 조회
+purpose: 공개 또는 권한이 있는 GitHub 저장소에서 지정한 파일 내용을 읽거나 디렉터리의 항목을 확인합니다.
+category_ids: [repository]
+aliases: [read a repository file, list repository directory, browse GitHub source]
+entity_types: [repository-file, repository-directory]
+inputs:
+  - name: owner
+    type: string
+    required: true
+    description: 저장소 소유자입니다.
+  - name: repo
+    type: string
+    required: true
+    description: 저장소 이름입니다.
+  - name: path
+    type: string
+    required: false
+    description: 파일 또는 디렉터리 경로입니다. 생략하면 저장소 루트 항목을 반환합니다.
+outputs:
+  - name: content_or_entries
+    type: object
+    description: 파일 내용 또는 디렉터리 항목입니다.
+effect: read
+status: active

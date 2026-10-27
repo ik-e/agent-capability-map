@@ -1,0 +1,35 @@
+service:
+  id: svc_tavily
+  name: Tavily
+  provider_name: Tavily
+  summary: Search and extract web content through an API designed for AI applications.
+  homepage_url: https://tavily.com/
+  status: active
+integrations:
+  - id: int_tavily_web_api
+    service_id: svc_tavily
+    name: Tavily Web API
+    summary: Search the web and extract content from specified URLs.
+    status: active
+bindings:
+  - id: bnd_tavily_web_http
+    integration_id: int_tavily_web_api
+    resource_kind: http_api
+    name: Tavily HTTP API
+    locations:
+      docs_url:
+        url: https://docs.tavily.com/api-reference/introduction
+      api_base_url:
+        url: https://api.tavily.com
+    transport: http
+    auth_schemes: [bearer]
+    status: active
+    operation_refs:
+      - operation_id: op_tavily_web_search
+        native_ref:
+          kind: http_operation
+          value: POST /search
+      - operation_id: op_tavily_extract_url
+        native_ref:
+          kind: http_operation
+          value: POST /extract

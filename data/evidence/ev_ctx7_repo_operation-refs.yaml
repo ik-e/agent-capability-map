@@ -1,0 +1,10 @@
+id: ev_ctx7_repo_operation_refs
+subject_id: bnd_context7_remote_mcp
+claim_path: /operation_refs
+source_url: https://github.com/upstash/context7
+source_type: official_repo
+source_grade: A
+verification_state: verified
+verified_at: '2026-10-27T00:00:00Z'
+source_locator: Official Context7 MCP repository and tool declarations
+verification_method: manual_review

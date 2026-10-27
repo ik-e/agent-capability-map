@@ -1,0 +1,38 @@
+service:
+  id: svc_context7
+  name: Context7
+  provider_name: Upstash
+  summary: Provides current, version-aware software library documentation and code examples to AI agents.
+  homepage_url: https://context7.com/
+  status: active
+integrations:
+  - id: int_context7_mcp
+    service_id: svc_context7
+    name: Context7 MCP Server
+    summary: Resolve library identifiers and retrieve focused documentation through MCP tools.
+    status: active
+bindings:
+  - id: bnd_context7_remote_mcp
+    integration_id: int_context7_mcp
+    resource_kind: mcp_server
+    name: Context7 Remote MCP Server
+    locations:
+      docs_url:
+        url: https://context7.com/docs/resources/all-clients
+      mcp_endpoint_url:
+        url: https://mcp.context7.com/mcp
+      mcp_repo_url:
+        url: https://github.com/upstash/context7
+    transport: streamable_http
+    auth_schemes: [none, bearer]
+    mcp_primitives: [tool]
+    status: active
+    operation_refs:
+      - operation_id: op_context7_resolve_library
+        native_ref:
+          kind: mcp_tool
+          value: resolve-library-id
+      - operation_id: op_context7_query_docs
+        native_ref:
+          kind: mcp_tool
+          value: query-docs

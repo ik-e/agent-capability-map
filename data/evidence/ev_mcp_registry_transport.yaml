@@ -1,0 +1,11 @@
+id: ev_mcp_registry_transport
+subject_id: bnd_mcp_registry_http
+claim_path: /transport
+source_url: https://registry.modelcontextprotocol.io/docs
+source_type: official_docs
+source_grade: A
+verification_state: verified
+verified_at: '2026-10-27T00:00:00Z'
+source_locator: 'Official MCP Registry OpenAPI reference: v0.1 server list and version
+  detail GET endpoints; read operations are public'
+verification_method: manual_review

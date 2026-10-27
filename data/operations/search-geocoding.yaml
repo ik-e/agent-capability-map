@@ -1,0 +1,21 @@
+id: op_search_geocoding
+name: 장소명으로 위치 검색
+purpose: 지명 또는 우편번호를 검색해 일치하는 장소의 좌표와 행정 구역 정보를 찾습니다.
+category_ids: [geocoding]
+aliases: [geocode a place, find coordinates by city name, search location]
+entity_types: [place, geographic-coordinate]
+inputs:
+  - name: name
+    type: string
+    required: true
+    description: 장소명 또는 우편번호입니다.
+  - name: count
+    type: integer
+    required: false
+    description: 반환할 최대 결과 수입니다.
+outputs:
+  - name: locations
+    type: array
+    description: 좌표와 장소 메타데이터를 포함한 일치 결과입니다.
+effect: read
+status: active

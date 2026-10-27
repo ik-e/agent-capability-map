@@ -18,7 +18,7 @@ python -m http.server 8000 --directory site
 
 브라우저에서 `http://localhost:8000`을 엽니다. 원본 데이터는 `data/`에서 수정하고, `site/catalog/v1/`은 생성 파일이므로 직접 편집하지 않습니다.
 
-검색 평가기는 `evals/golden/queries.json`을 사용합니다. 현재 예시는 10개 질의로 동작 확인용이며, 계획의 통계적 게이트(하드 제약 30개·무결과 20개)를 만족하는 평가 세트는 아닙니다.
+검색 평가기는 `evals/golden/queries.json`을 사용합니다. 현재 예시는 17개 질의로 동작 확인용이며, 계획의 통계적 게이트(하드 제약 30개·무결과 20개)를 만족하는 평가 세트는 아닙니다.
 
 ## 데이터 구조
 
@@ -28,7 +28,7 @@ python -m http.server 8000 --directory site
 - `schemas/v1/`: JSON Schema 계약
 - `site/catalog/v1/`: manifest, 검색·탐색 인덱스, 개별 상세, 일괄 JSONL
 
-초기 데이터는 GitHub REST API, GitHub MCP Server, Open-Meteo, OpenAI Python SDK에 대한 검토용 시작 표본입니다. 계획의 20~50개 Operation 목표를 채운 것이 아니며, 각 레코드는 공식 문서 Evidence를 붙여 확장합니다.
+현재 표본은 7개 Service와 16개 Operation입니다. GitHub, Open-Meteo, OpenAI에 더해 MCP Registry, Context7, Tavily, Hugging Face Hub를 포함하며, MCP 서버 발견·최신 개발 문서 조회·웹 검색과 URL 추출·모델/데이터셋 탐색·장소 지오코딩을 다룹니다. 아직 계획의 20~50개 Operation 목표에는 미달하며, 각 레코드는 공식 출처 Evidence를 붙여 확장합니다.
 
 ## GitHub Pages 게시
 

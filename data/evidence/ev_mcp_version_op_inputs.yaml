@@ -1,0 +1,10 @@
+id: ev_mcp_version_op_inputs
+subject_id: op_get_mcp_server_version
+claim_path: /inputs
+source_url: https://github.com/modelcontextprotocol/registry/blob/main/docs/reference/api/openapi.yaml
+source_type: official_docs
+source_grade: A
+verification_state: verified
+verified_at: '2026-10-27T00:00:00Z'
+source_locator: GET /v0.1/servers/{serverName}/versions/{version} response
+verification_method: manual_review
