@@ -1,0 +1,10 @@
+id: ev_current_weather_inputs
+subject_id: op_get_current_weather
+claim_path: /inputs
+source_url: https://open-meteo.com/en/docs
+source_type: official_docs
+source_grade: A
+verification_state: verified
+verified_at: '2026-10-27T00:00:00Z'
+source_locator: Latitude and longitude coordinates
+verification_method: manual_review

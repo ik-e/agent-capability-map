@@ -1,0 +1,26 @@
+{
+  "name": "example-weather",
+  "description": "현재 날씨 조회 API를 에이전트가 사용할 수 있게 연결한다.",
+  "baseUrl": "https://api.example.com",
+  "auth": {
+    "type": "bearer"
+  },
+  "operations": [
+    {
+      "name": "get_current_weather",
+      "description": "지정한 도시의 현재 날씨를 조회한다.",
+      "method": "GET",
+      "path": "/v1/weather",
+      "inputSchema": {
+        "type": "object",
+        "required": ["city"],
+        "properties": {
+          "city": {
+            "type": "string",
+            "description": "도시 이름"
+          }
+        }
+      }
+    }
+  ]
+}

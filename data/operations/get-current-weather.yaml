@@ -1,0 +1,21 @@
+id: op_get_current_weather
+name: get_current_weather
+purpose: Retrieve the current weather variables for a geographic coordinate.
+category_ids: [weather]
+aliases: [current weather, temperature now, 현재 날씨, 현재 기온]
+entity_types: [geographic-coordinate, weather-observation]
+inputs:
+  - name: latitude
+    type: number
+    required: true
+    description: Latitude in decimal degrees.
+  - name: longitude
+    type: number
+    required: true
+    description: Longitude in decimal degrees.
+outputs:
+  - name: current
+    type: object
+    description: Current weather values returned by the provider.
+effect: read
+status: active

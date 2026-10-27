@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agent-capability-map.invalid/schemas/v1/service-bundle.schema.json",
+  "title": "Service bundle",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["service", "integrations", "bindings"],
+  "properties": {
+    "service": {"$ref": "#/$defs/service"},
+    "integrations": {"type": "array", "items": {"$ref": "#/$defs/integration"}},
+    "bindings": {"type": "array", "items": {"$ref": "#/$defs/binding"}}
+  },
+  "$defs": {
+    "id": {"type": "string", "pattern": "^(svc|int|bnd)_[a-z0-9]+(?:_[a-z0-9]+)*$"},
+    "operationId": {"type": "string", "pattern": "^op_[a-z0-9]+(?:_[a-z0-9]+)*$"},
+    "status": {"enum": ["active", "beta", "deprecated", "archived", "unknown", "draft"]},
+    "url": {"type": "object", "additionalProperties": false, "required": ["url"], "properties": {"url": {"type": "string", "format": "uri", "pattern": "^https://"}}},
+    "package": {"type": "object", "additionalProperties": false, "required": ["package", "registry"], "properties": {"package": {"type": "string", "minLength": 1}, "registry": {"enum": ["npm", "pypi", "maven", "nuget", "crates_io", "go", "oci", "mcp_registry", "other"]}}},
+    "locations": {
+      "type": "object", "minProperties": 1, "additionalProperties": false,
+      "properties": {
+        "docs_url": {"$ref": "#/$defs/url"}, "api_base_url": {"$ref": "#/$defs/url"}, "api_spec_url": {"$ref": "#/$defs/url"},
+        "mcp_endpoint_url": {"$ref": "#/$defs/url"}, "mcp_package": {"$ref": "#/$defs/package"}, "mcp_repo_url": {"$ref": "#/$defs/url"},
+        "sdk_package": {"$ref": "#/$defs/package"}, "sdk_repo_url": {"$ref": "#/$defs/url"}, "source_repo_url": {"$ref": "#/$defs/url"}, "other_url": {"$ref": "#/$defs/url"}
+      }
+    },
+    "service": {"type": "object", "additionalProperties": false, "required": ["id", "name", "provider_name", "summary", "status"], "properties": {"id": {"$ref": "#/$defs/id"}, "name": {"type": "string", "minLength": 1}, "provider_name": {"type": "string", "minLength": 1}, "summary": {"type": "string", "minLength": 1}, "homepage_url": {"type": "string", "format": "uri"}, "status": {"$ref": "#/$defs/status"}}},
+    "integration": {"type": "object", "additionalProperties": false, "required": ["id", "service_id", "name", "summary", "status"], "properties": {"id": {"$ref": "#/$defs/id"}, "service_id": {"$ref": "#/$defs/id"}, "name": {"type": "string", "minLength": 1}, "summary": {"type": "string", "minLength": 1}, "status": {"$ref": "#/$defs/status"}}},
+    "binding": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "integration_id", "resource_kind", "name", "locations", "auth_schemes", "status"],
+      "properties": {
+        "id": {"$ref": "#/$defs/id"}, "integration_id": {"$ref": "#/$defs/id"}, "resource_kind": {"enum": ["http_api", "mcp_server", "sdk", "agent_connector", "other"]},
+        "name": {"type": "string", "minLength": 1}, "locations": {"$ref": "#/$defs/locations"}, "version": {"type": "string"},
+        "transport": {"enum": ["http", "streamable_http", "stdio", "sse", "websocket", "other", "unknown"]},
+        "auth_schemes": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"enum": ["none", "api_key", "bearer", "oauth2", "other", "unknown"]}},
+        "auth_scopes": {"type": "array", "items": {"type": "string"}}, "mcp_primitives": {"type": "array", "uniqueItems": true, "items": {"enum": ["tool", "resource", "prompt"]}},
+        "operation_refs": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["operation_id"], "properties": {"operation_id": {"$ref": "#/$defs/operationId"}, "native_ref": {"type": "object", "additionalProperties": false, "required": ["kind", "value"], "properties": {"kind": {"enum": ["http_operation", "mcp_tool", "sdk_symbol", "other"]}, "value": {"type": "string", "minLength": 1}}}}}},
+        "status": {"$ref": "#/$defs/status"}, "other_kind_note": {"type": "string"}
+      }
+    }
+  }
+}

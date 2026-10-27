@@ -1,0 +1,10 @@
+id: ev_openai_sdk_auth
+subject_id: bnd_openai_python_sdk
+claim_path: /auth_schemes
+source_url: https://github.com/openai/openai-python
+source_type: official_repo
+source_grade: A
+verification_state: verified
+verified_at: '2026-10-27T00:00:00Z'
+source_locator: OpenAI client initialized with API key from environment
+verification_method: manual_review

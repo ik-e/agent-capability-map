@@ -1,0 +1,66 @@
+service:
+  id: svc_github
+  name: GitHub
+  provider_name: GitHub, Inc.
+  summary: Hosted software development platform with a documented REST API.
+  homepage_url: https://github.com/
+  status: active
+integrations:
+  - id: int_github_rest
+    service_id: svc_github
+    name: GitHub REST API
+    summary: Read repository, issue search, and pull request information over HTTPS.
+    status: active
+  - id: int_github_mcp
+    service_id: svc_github
+    name: GitHub MCP Server
+    summary: Local stdio MCP server exposing GitHub capabilities as tools.
+    status: active
+bindings:
+  - id: bnd_github_rest
+    integration_id: int_github_rest
+    resource_kind: http_api
+    name: GitHub REST API v2026-03-10
+    version: "2026-03-10"
+    locations:
+      docs_url:
+        url: https://docs.github.com/en/rest
+      api_base_url:
+        url: https://api.github.com
+    transport: http
+    auth_schemes: [none, bearer]
+    status: active
+    operation_refs:
+      - operation_id: op_search_github_issues
+        native_ref:
+          kind: http_operation
+          value: GET /search/issues
+      - operation_id: op_get_github_repository
+        native_ref:
+          kind: http_operation
+          value: GET /repos/{owner}/{repo}
+      - operation_id: op_list_github_pull_requests
+        native_ref:
+          kind: http_operation
+          value: GET /repos/{owner}/{repo}/pulls
+  - id: bnd_github_mcp_local
+    integration_id: int_github_mcp
+    resource_kind: mcp_server
+    name: GitHub MCP Server (container / stdio)
+    locations:
+      docs_url:
+        url: https://github.com/github/github-mcp-server
+      mcp_package:
+        package: ghcr.io/github/github-mcp-server
+        registry: oci
+      mcp_repo_url:
+        url: https://github.com/github/github-mcp-server
+    transport: stdio
+    auth_schemes: [bearer]
+    mcp_primitives: [tool]
+    status: active
+    operation_refs:
+      - operation_id: op_search_github_issues
+        native_ref:
+          kind: mcp_tool
+          value: search_issues

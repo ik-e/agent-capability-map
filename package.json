@@ -1,0 +1,9 @@
+{
+  "name": "agent-capability-map",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "catalog:build": "py -3.12 scripts/build_catalog.py",
+    "catalog:evaluate": "node scripts/evaluate_search.mjs"
+  }
+}

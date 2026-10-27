@@ -1,0 +1,35 @@
+service:
+  id: svc_open_meteo
+  name: Open-Meteo
+  provider_name: Open-Meteo
+  summary: Weather forecast and related environmental data through a public HTTP API.
+  homepage_url: https://open-meteo.com/
+  status: active
+integrations:
+  - id: int_open_meteo_forecast
+    service_id: svc_open_meteo
+    name: Weather Forecast API
+    summary: Query forecast variables by geographic coordinates and time range.
+    status: active
+bindings:
+  - id: bnd_open_meteo_forecast_http
+    integration_id: int_open_meteo_forecast
+    resource_kind: http_api
+    name: Forecast HTTP API
+    locations:
+      docs_url:
+        url: https://open-meteo.com/en/docs
+      api_base_url:
+        url: https://api.open-meteo.com/v1
+    transport: http
+    auth_schemes: [none]
+    status: active
+    operation_refs:
+      - operation_id: op_get_current_weather
+        native_ref:
+          kind: http_operation
+          value: GET /forecast?current=temperature_2m
+      - operation_id: op_get_hourly_forecast
+        native_ref:
+          kind: http_operation
+          value: GET /forecast?hourly=temperature_2m

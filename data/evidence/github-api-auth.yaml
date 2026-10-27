@@ -1,0 +1,10 @@
+id: ev_github_api_auth
+subject_id: bnd_github_rest
+claim_path: /auth_schemes
+source_url: https://docs.github.com/en/rest/authentication/authenticating-to-the-rest-api
+source_type: official_docs
+source_grade: A
+verification_state: verified
+verified_at: '2026-10-27T00:00:00Z'
+source_locator: Public resources may be requested without authentication; bearer tokens can authenticate requests
+verification_method: manual_review

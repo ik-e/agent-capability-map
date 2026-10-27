@@ -1,0 +1,10 @@
+id: ev_hourly_forecast_inputs
+subject_id: op_get_hourly_forecast
+claim_path: /inputs
+source_url: https://open-meteo.com/en/docs
+source_type: official_docs
+source_grade: A
+verification_state: verified
+verified_at: '2026-10-27T00:00:00Z'
+source_locator: Hourly weather variables, coordinates and forecast interval
+verification_method: manual_review

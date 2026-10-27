@@ -1,0 +1,25 @@
+id: op_generate_model_response
+name: generate_model_response
+purpose: Generate a model response from input instructions and content.
+category_ids: [ai-generation]
+aliases: [generate text with a model, create a model response, 모델 응답 생성]
+entity_types: [model-response, text]
+inputs:
+  - name: model
+    type: string
+    required: true
+    description: Model identifier supported by the provider.
+  - name: input
+    type: string
+    required: true
+    description: Input content or conversation items for the response.
+  - name: instructions
+    type: string
+    required: false
+    description: Optional high-level instructions for the model.
+outputs:
+  - name: response
+    type: object
+    description: Response object returned by the API.
+effect: write
+status: active

@@ -1,0 +1,21 @@
+id: op_get_github_repository
+name: get_github_repository
+purpose: Retrieve metadata for a public GitHub repository.
+category_ids: [repository]
+aliases: [repository details, repo metadata, 저장소 정보]
+entity_types: [repository]
+inputs:
+  - name: owner
+    type: string
+    required: true
+    description: Repository owner login.
+  - name: repo
+    type: string
+    required: true
+    description: Repository name.
+outputs:
+  - name: repository
+    type: object
+    description: Repository metadata object.
+effect: read
+status: active

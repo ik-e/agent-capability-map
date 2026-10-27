@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agent-capability-map.invalid/schemas/v1/operation.schema.json",
+  "title": "Operation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "name", "purpose", "effect", "status"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^op_[a-z0-9]+(?:_[a-z0-9]+)*$"},
+    "name": {"type": "string", "minLength": 1},
+    "purpose": {"type": "string", "minLength": 1},
+    "category_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"}},
+    "aliases": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+    "entity_types": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+    "inputs": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["name", "type", "required", "description"], "properties": {"name": {"type": "string"}, "type": {"enum": ["string", "number", "integer", "boolean", "object", "array"]}, "required": {"type": "boolean"}, "description": {"type": "string"}}}},
+    "outputs": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["name", "type", "description"], "properties": {"name": {"type": "string"}, "type": {"enum": ["string", "number", "integer", "boolean", "object", "array"]}, "description": {"type": "string"}}}},
+    "effect": {"enum": ["none", "read", "write", "destructive", "unknown"]},
+    "status": {"enum": ["active", "beta", "deprecated", "archived", "unknown", "draft"]}
+  }
+}

@@ -1,0 +1,25 @@
+id: op_get_hourly_forecast
+name: get_hourly_forecast
+purpose: Retrieve hourly forecast variables for a geographic coordinate.
+category_ids: [weather]
+aliases: [hourly forecast, weather by hour, 시간별 예보]
+entity_types: [geographic-coordinate, weather-forecast]
+inputs:
+  - name: latitude
+    type: number
+    required: true
+    description: Latitude in decimal degrees.
+  - name: longitude
+    type: number
+    required: true
+    description: Longitude in decimal degrees.
+  - name: variables
+    type: array
+    required: false
+    description: Provider-supported hourly variable names.
+outputs:
+  - name: hourly
+    type: object
+    description: Time-indexed hourly forecast values.
+effect: read
+status: active

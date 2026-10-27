@@ -1,0 +1,10 @@
+id: ev_openai_sdk_operation
+subject_id: bnd_openai_python_sdk
+claim_path: /operation_refs
+source_url: https://github.com/openai/openai-python
+source_type: official_repo
+source_grade: A
+verification_state: verified
+verified_at: '2026-10-27T00:00:00Z'
+source_locator: Responses API example calls client.responses.create
+verification_method: manual_review

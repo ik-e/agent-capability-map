@@ -1,0 +1,10 @@
+id: ev_current_weather_effect
+subject_id: op_get_current_weather
+claim_path: /effect
+source_url: https://www.rfc-editor.org/rfc/rfc9110.html#name-safe-methods
+source_type: official_spec
+source_grade: A
+verification_state: verified
+verified_at: '2026-10-27T00:00:00Z'
+source_locator: GET is a safe method; provider operation is a read-only GET
+verification_method: protocol_semantics

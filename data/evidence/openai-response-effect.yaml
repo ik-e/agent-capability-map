@@ -1,0 +1,10 @@
+id: ev_openai_response_effect
+subject_id: op_generate_model_response
+claim_path: /effect
+source_url: https://platform.openai.com/docs/api-reference/responses/create
+source_type: official_docs
+source_grade: A
+verification_state: verified
+verified_at: '2026-10-27T00:00:00Z'
+source_locator: Create a model response endpoint
+verification_method: manual_review

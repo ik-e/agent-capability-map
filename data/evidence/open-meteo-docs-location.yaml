@@ -1,0 +1,10 @@
+id: ev_open_meteo_docs_location
+subject_id: bnd_open_meteo_forecast_http
+claim_path: /locations/docs_url/url
+source_url: https://open-meteo.com/en/docs
+source_type: official_docs
+source_grade: A
+verification_state: verified
+verified_at: '2026-10-27T00:00:00Z'
+source_locator: Weather Forecast API documentation page
+verification_method: manual_review

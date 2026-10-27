@@ -1,0 +1,10 @@
+id: ev_github_mcp_auth
+subject_id: bnd_github_mcp_local
+claim_path: /auth_schemes
+source_url: https://github.com/github/github-mcp-server
+source_type: official_repo
+source_grade: A
+verification_state: verified
+verified_at: '2026-10-27T00:00:00Z'
+source_locator: Local server configuration accepts GITHUB_PERSONAL_ACCESS_TOKEN
+verification_method: manual_review

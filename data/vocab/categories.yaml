@@ -1,0 +1,10 @@
+- id: weather
+  label: Weather data
+- id: repository
+  label: Repository information
+- id: issue-tracking
+  label: Issue tracking
+- id: pull-requests
+  label: Pull request information
+- id: ai-generation
+  label: AI model generation

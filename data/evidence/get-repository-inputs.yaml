@@ -1,0 +1,10 @@
+id: ev_get_repository_inputs
+subject_id: op_get_github_repository
+claim_path: /inputs
+source_url: https://docs.github.com/en/rest/repos/repos
+source_type: official_docs
+source_grade: A
+verification_state: verified
+verified_at: '2026-10-27T00:00:00Z'
+source_locator: Get a repository path parameters owner and repo
+verification_method: manual_review

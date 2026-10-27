@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "description": "Starter discovery examples; not a statistically sufficient holdout set.",
+  "gates": {
+    "min_hard_constraint_queries": 30,
+    "min_no_match_queries": 20,
+    "recall_at_5": 0.9,
+    "no_match_abstention": 0.9,
+    "false_hard_constraint_passes": 0
+  },
+  "queries": [
+    {
+      "id": "exact-weather-operation",
+      "query": "get_current_weather",
+      "filters": {"resource_kind": "http_api", "transport": "http", "auth_schemes": "none"},
+      "expected_ids": ["op_get_current_weather"],
+      "expected_bindings": {"op_get_current_weather": "bnd_open_meteo_forecast_http"}
+    },
+    {
+      "id": "korean-weather-alias",
+      "query": "현재 기온",
+      "filters": {"resource_kind": "http_api"},
+      "expected_ids": ["op_get_current_weather"],
+      "expected_bindings": {"op_get_current_weather": "bnd_open_meteo_forecast_http"}
+    },
+    {
+      "id": "hourly-forecast-paraphrase",
+      "query": "시간별 예보",
+      "filters": {"resource_kind": "http_api", "effect": "read"},
+      "expected_ids": ["op_get_hourly_forecast"],
+      "expected_bindings": {"op_get_hourly_forecast": "bnd_open_meteo_forecast_http"}
+    },
+    {
+      "id": "github-issues-mcp",
+      "query": "search GitHub issues",
+      "filters": {"resource_kind": "mcp_server", "transport": "stdio", "auth_schemes": "bearer"},
+      "expected_ids": ["op_search_github_issues"],
+      "expected_bindings": {"op_search_github_issues": "bnd_github_mcp_local"}
+    },
+    {
+      "id": "github-issues-rest-multiple-constraints",
+      "query": "이슈 검색",
+      "filters": {"resource_kind": "http_api", "transport": "http", "auth_schemes": "bearer", "effect": "read"},
+      "expected_ids": ["op_search_github_issues"],
+      "expected_bindings": {"op_search_github_issues": "bnd_github_rest"}
+    },
+    {
+      "id": "repository-details",
+      "query": "repository metadata",
+      "filters": {"resource_kind": "http_api", "auth_schemes": "bearer"},
+      "expected_ids": ["op_get_github_repository"],
+      "expected_bindings": {"op_get_github_repository": "bnd_github_rest"}
+    },
+    {
+      "id": "pull-request-list",
+      "query": "list pull requests",
+      "filters": {"resource_kind": "http_api", "transport": "http"},
+      "expected_ids": ["op_list_github_pull_requests"],
+      "expected_bindings": {"op_list_github_pull_requests": "bnd_github_rest"}
+    },
+    {
+      "id": "no-match-audio-transcription",
+      "query": "transcribe an audio recording",
+      "filters": {},
+      "expected_ids": [],
+      "no_match": true
+    },
+    {
+      "id": "no-match-unsupported-auth",
+      "query": "weather forecast",
+      "filters": {"resource_kind": "http_api", "auth_schemes": "bearer"},
+      "expected_ids": [],
+      "no_match": true
+    },
+    {
+      "id": "no-match-write-required",
+      "query": "search GitHub issues",
+      "filters": {"resource_kind": "http_api", "effect": "write"},
+      "expected_ids": [],
+      "no_match": true
+    }
+  ]
+}

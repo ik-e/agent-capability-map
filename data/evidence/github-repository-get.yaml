@@ -1,0 +1,10 @@
+id: ev_github_repository_get
+subject_id: bnd_github_rest
+claim_path: /operation_refs
+source_url: https://docs.github.com/en/rest/repos/repos
+source_type: official_docs
+source_grade: A
+verification_state: verified
+verified_at: '2026-10-27T00:00:00Z'
+source_locator: Get a repository endpoint
+verification_method: manual_review

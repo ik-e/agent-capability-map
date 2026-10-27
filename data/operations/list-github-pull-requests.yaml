@@ -1,0 +1,25 @@
+id: op_list_github_pull_requests
+name: list_github_pull_requests
+purpose: List pull requests in a GitHub repository.
+category_ids: [pull-requests]
+aliases: [list PRs, repository pull requests, PR 목록]
+entity_types: [repository, pull-request]
+inputs:
+  - name: owner
+    type: string
+    required: true
+    description: Repository owner login.
+  - name: repo
+    type: string
+    required: true
+    description: Repository name.
+  - name: state
+    type: string
+    required: false
+    description: Optional state filter supported by the endpoint.
+outputs:
+  - name: pull_requests
+    type: array
+    description: Pull request records.
+effect: read
+status: active

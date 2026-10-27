@@ -1,0 +1,39 @@
+﻿{
+    "schemaVersion":  "0.1",
+    "kind":  "mcp-api-connector",
+    "name":  "example-weather",
+    "description":  "?꾩옱 ?좎뵪 議고쉶 API瑜??먯씠?꾪듃媛 ?ъ슜?????덇쾶 ?곌껐?쒕떎.",
+    "transport":  {
+                      "baseUrl":  "https://api.example.com",
+                      "auth":  {
+                                   "type":  "bearer"
+                               }
+                  },
+    "tools":  [
+                  {
+                      "name":  "get_current_weather",
+                      "description":  "吏?뺥븳 ?꾩떆???꾩옱 ?좎뵪瑜?議고쉶?쒕떎.",
+                      "inputSchema":  {
+                                          "type":  "object",
+                                          "required":  [
+                                                           "city"
+                                                       ],
+                                          "properties":  {
+                                                             "city":  {
+                                                                          "type":  "string",
+                                                                          "description":  "?꾩떆 ?대쫫"
+                                                                      }
+                                                         }
+                                      },
+                      "http":  {
+                                   "method":  "GET",
+                                   "path":  "/v1/weather"
+                               }
+                  }
+              ],
+    "safety":  {
+                   "secretsStored":  false,
+                   "networkRequired":  true,
+                   "requiresUserApproval":  true
+               }
+}

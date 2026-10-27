@@ -1,0 +1,33 @@
+service:
+  id: svc_openai
+  name: OpenAI API
+  provider_name: OpenAI
+  summary: Model APIs and an official Python SDK for building AI applications.
+  homepage_url: https://platform.openai.com/
+  status: active
+integrations:
+  - id: int_openai_python_sdk
+    service_id: svc_openai
+    name: OpenAI Python SDK
+    summary: Python client for calling OpenAI API operations.
+    status: active
+bindings:
+  - id: bnd_openai_python_sdk
+    integration_id: int_openai_python_sdk
+    resource_kind: sdk
+    name: Official OpenAI Python SDK
+    locations:
+      docs_url:
+        url: https://github.com/openai/openai-python
+      sdk_package:
+        package: openai
+        registry: pypi
+      sdk_repo_url:
+        url: https://github.com/openai/openai-python
+    auth_schemes: [bearer]
+    status: active
+    operation_refs:
+      - operation_id: op_generate_model_response
+        native_ref:
+          kind: sdk_symbol
+          value: client.responses.create

@@ -1,0 +1,10 @@
+id: ev_github_rest_transport
+subject_id: bnd_github_rest
+claim_path: /transport
+source_url: https://docs.github.com/en/rest
+source_type: official_docs
+source_grade: A
+verification_state: verified
+verified_at: '2026-10-27T00:00:00Z'
+source_locator: HTTPS REST API endpoint examples
+verification_method: manual_review

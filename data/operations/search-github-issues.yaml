@@ -1,0 +1,17 @@
+id: op_search_github_issues
+name: search_github_issues
+purpose: Search GitHub issues and pull requests using GitHub search qualifiers.
+category_ids: [issue-tracking]
+aliases: [find GitHub issues, search pull requests, 이슈 검색, PR 검색]
+entity_types: [issue, pull-request, repository]
+inputs:
+  - name: query
+    type: string
+    required: true
+    description: GitHub search query, including supported qualifiers.
+outputs:
+  - name: items
+    type: array
+    description: Matching issues and pull requests.
+effect: read
+status: active
