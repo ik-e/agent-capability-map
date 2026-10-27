@@ -299,7 +299,8 @@ def main() -> int:
     source_hash = hashlib.sha256()
     for path in source_files:
         source_hash.update(path.relative_to(ROOT).as_posix().encode("utf-8"))
-        source_hash.update(path.read_bytes())
+        # Keep the catalog revision identical on Windows and Linux checkouts.
+        source_hash.update(path.read_bytes().replace(b"\r\n", b"\n").replace(b"\r", b"\n"))
     revision = source_hash.hexdigest()[:16]
     epoch = os.environ.get("SOURCE_DATE_EPOCH")
     if epoch:
