@@ -1,6 +1,6 @@
 id: op_get_github_repository
-name: get_github_repository
-purpose: Retrieve metadata for a public GitHub repository.
+name: GitHub 저장소 정보 조회
+purpose: 공개 GitHub 저장소의 메타데이터를 조회합니다.
 category_ids: [repository]
 aliases: [repository details, repo metadata, 저장소 정보]
 entity_types: [repository]
@@ -8,14 +8,14 @@ inputs:
   - name: owner
     type: string
     required: true
-    description: Repository owner login.
+    description: 저장소 소유자의 로그인 이름입니다.
   - name: repo
     type: string
     required: true
-    description: Repository name.
+    description: 저장소 이름입니다.
 outputs:
   - name: repository
     type: object
-    description: Repository metadata object.
+    description: 저장소 메타데이터 객체입니다.
 effect: read
 status: active

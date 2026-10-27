@@ -1,10 +1,10 @@
 - id: weather
-  label: Weather data
+  label: 날씨 데이터
 - id: repository
-  label: Repository information
+  label: 저장소 정보
 - id: issue-tracking
-  label: Issue tracking
+  label: 이슈 관리
 - id: pull-requests
-  label: Pull request information
+  label: 풀 리퀘스트
 - id: ai-generation
-  label: AI model generation
+  label: AI 모델 생성

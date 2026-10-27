@@ -1,0 +1,10 @@
+id: ev_openai_sdk_status
+subject_id: bnd_openai_python_sdk
+claim_path: /status
+source_url: https://github.com/openai/openai-python
+source_type: official_repo
+source_grade: A
+verification_state: verified
+verified_at: '2026-10-27T07:40:15Z'
+source_locator: Current official Python SDK repository and installation instructions
+verification_method: manual_review

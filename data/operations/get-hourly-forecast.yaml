@@ -1,6 +1,6 @@
 id: op_get_hourly_forecast
-name: get_hourly_forecast
-purpose: Retrieve hourly forecast variables for a geographic coordinate.
+name: 시간별 예보 조회
+purpose: 위도와 경도에 대한 시간별 예보 정보를 조회합니다.
 category_ids: [weather]
 aliases: [hourly forecast, weather by hour, 시간별 예보]
 entity_types: [geographic-coordinate, weather-forecast]
@@ -8,18 +8,18 @@ inputs:
   - name: latitude
     type: number
     required: true
-    description: Latitude in decimal degrees.
+    description: 십진 도 단위의 위도입니다.
   - name: longitude
     type: number
     required: true
-    description: Longitude in decimal degrees.
+    description: 십진 도 단위의 경도입니다.
   - name: variables
     type: array
     required: false
-    description: Provider-supported hourly variable names.
+    description: 제공자가 지원하는 시간별 변수 이름 목록입니다.
 outputs:
   - name: hourly
     type: object
-    description: Time-indexed hourly forecast values.
+    description: 시간에 따라 인덱싱된 시간별 예보 값입니다.
 effect: read
 status: active

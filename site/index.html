@@ -19,7 +19,7 @@
 
   <main>
     <section class="hero">
-      <p class="eyebrow">OPEN CATALOG · HUMAN REVIEWED · AI READABLE</p>
+  <p class="eyebrow">OPEN CATALOG · SOURCE LINKED · AI READABLE</p>
       <h1>작업에 맞는 연결 방법을<br><em>찾아보세요.</em></h1>
       <p class="hero-copy">공개 API와 MCP, SDK를 목적과 요구 조건으로 탐색합니다.<br>각 항목에는 공식 출처와 검증 상태가 연결되어 있습니다.</p>
       <form id="search-form" class="search-form" role="search">
@@ -28,7 +28,7 @@
         <input id="query" name="q" type="search" placeholder="예: 특정 저장소의 열린 이슈 찾기" autocomplete="off">
         <button type="submit">검색</button>
       </form>
-      <div class="filter-row" aria-label="검색 조건">
+      <div class="filter-row" role="group" aria-label="검색 조건">
         <label>유형 <select id="kind-filter"><option value="">모든 유형</option><option value="http_api">HTTP API</option><option value="mcp_server">MCP 서버</option><option value="sdk">SDK</option></select></label>
         <label>전송 <select id="transport-filter"><option value="">모든 전송</option><option value="http">HTTP</option><option value="stdio">stdio</option><option value="streamable_http">Streamable HTTP</option></select></label>
         <label>인증 <select id="auth-filter"><option value="">상관없음</option><option value="none">인증 불필요</option><option value="bearer">Bearer token</option><option value="api_key">API key</option></select></label>
@@ -41,12 +41,12 @@
         <nav id="categories" class="category-list" aria-label="분야별 탐색"></nav>
         <div class="sidebar-note"><span class="note-dot"></span><p>이 카탈로그는 공개 문서입니다. 서비스의 실시간 가용성이나 실행을 보장하지 않습니다.</p></div>
       </aside>
-      <section class="results-panel" aria-live="polite">
+      <section class="results-panel">
         <div class="results-header">
           <div><p class="eyebrow">DISCOVERY</p><h2 id="results-title">둘러보기</h2></div>
           <span class="result-count" id="result-count"></span>
         </div>
-        <p id="status-message" class="status-message">카탈로그를 불러오고 있습니다.</p>
+        <p id="status-message" class="status-message" aria-live="polite">카탈로그를 불러오고 있습니다.</p>
         <div id="results" class="results-list"></div>
       </section>
       <aside class="detail-panel" id="detail-panel">

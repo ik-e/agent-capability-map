@@ -226,7 +226,10 @@ def main() -> int:
 
     binding_claims: dict[str, list[str]] = {}
     for binding in bindings.values():
-        claims = [f"/locations/{key}/{('url' if key in URL_KEYS else 'package')}" for key in binding["locations"]]
+        claims = ["/resource_kind", "/status"]
+        if "version" in binding:
+            claims.append("/version")
+        claims.extend(f"/locations/{key}/{('url' if key in URL_KEYS else 'package')}" for key in binding["locations"])
         claims.extend(["/auth_schemes"])
         if "transport" in binding:
             claims.append("/transport")
@@ -256,12 +259,23 @@ def main() -> int:
             continue
         per_binding = []
         for binding in sorted(active_bindings, key=lambda row: row["id"]):
+            integration = integrations[binding["integration_id"]]
+            service = services[integration["service_id"]]
             all_claims_verified = all(has_claim(binding["id"], claim, verified=True) for claim in binding_claims[binding["id"]])
+            claim_states = {
+                claim: "verified" if has_claim(binding["id"], claim, verified=True) else "unknown"
+                for claim in binding_claims[binding["id"]]
+            }
             per_binding.append({
                 "id": binding["id"],
+                "name": binding["name"],
                 "resource_kind": binding["resource_kind"],
                 "transport": binding.get("transport", "unknown"),
                 "auth_schemes": binding["auth_schemes"],
+                "integration_name": integration["name"],
+                "service_name": service["name"],
+                "provider_name": service["provider_name"],
+                "claim_states": claim_states,
                 "status": binding["status"],
                 "evidence_state": "verified" if all_claims_verified else "unknown",
                 "detail_url": f"../bindings/{binding['id']}.json",
@@ -271,9 +285,11 @@ def main() -> int:
             "name": operation["name"],
             "purpose": operation["purpose"],
             "category_ids": operation.get("category_ids", []),
+            "category_labels": [row["label"] for row in categories if row["id"] in operation.get("category_ids", [])],
             "aliases": operation.get("aliases", []),
             "entity_types": operation.get("entity_types", []),
             "effect": operation["effect"],
+            "effect_evidence_state": "verified" if has_claim(operation["id"], "/effect", verified=True) else "unknown",
             "status": operation["status"],
             "inputs": operation.get("inputs", []),
             "binding_summaries": per_binding,
@@ -318,9 +334,11 @@ def main() -> int:
         write_json(output / "evidence" / f"{record['id']}.json", record)
 
     search_index = {
-        "algorithm": "lexical-v1",
-        "normalization": "Unicode NFKC, casefold, whitespace/token normalization",
-        "weights": {"exact_name": 10, "name_token": 5, "alias": 4, "purpose": 2, "entity_type": 1},
+        "algorithm": "lexical-v3",
+        "normalization": "Unicode NFKC, casefold, tokenization, Korean common-particle stripping",
+        "weights": {"exact_id": 20, "exact_name": 10, "name_token": 5, "alias": 4, "purpose": 2, "entity_type": 1, "context": 2},
+        "context_fields": ["binding_name", "integration_name", "service_name", "provider_name", "resource_kind", "transport", "auth_schemes", "category_labels"],
+        "minimum_query_term_coverage": "min(2, unique_query_terms)",
         "tie_break": "id_ascending",
         "default_limit": 5,
         "max_limit": 20,

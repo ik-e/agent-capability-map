@@ -24,7 +24,7 @@ bindings:
         registry: pypi
       sdk_repo_url:
         url: https://github.com/openai/openai-python
-    auth_schemes: [bearer]
+    auth_schemes: [api_key]
     status: active
     operation_refs:
       - operation_id: op_generate_model_response

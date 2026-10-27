@@ -6,5 +6,5 @@ source_type: official_docs
 source_grade: A
 verification_state: verified
 verified_at: '2026-10-27T00:00:00Z'
-source_locator: Create a model response endpoint
+source_locator: Create a response by running model inference; this operation does not create or mutate a persistent provider resource
 verification_method: manual_review

@@ -20,6 +20,28 @@ let bindingExpectedCount = 0;
 let bindingCorrect = 0;
 const rows = [];
 
+// Independent check of whether a returned "satisfies" verdict is supported by
+// both the Binding's raw values and verified field-level Evidence.
+function independentlySatisfies(binding, item, filters) {
+  for (const [field, expected] of Object.entries(filters)) {
+    if (!expected) continue;
+    if (field === "effect") {
+      if (item.effect !== expected || item.effect_evidence_state !== "verified") return false;
+      continue;
+    }
+    const actual = binding[field];
+    const matches = Array.isArray(actual) ? actual.includes(expected) : actual === expected;
+    if (!matches) return false;
+    const claimPath = field === "resource_kind" ? "/resource_kind"
+      : field === "status" ? "/status"
+      : field === "transport" ? "/transport"
+      : field === "auth_schemes" ? "/auth_schemes"
+      : null;
+    if (claimPath && binding.claim_states?.[claimPath] !== "verified") return false;
+  }
+  return true;
+}
+
 for (const entry of fixture.queries) {
   const result = searchCatalog(index.items, entry.query, entry.filters || {}, "", limit);
   const ids = result.results.map((row) => row.item.id);
@@ -38,9 +60,9 @@ for (const entry of fixture.queries) {
   if (Object.values(entry.filters || {}).some(Boolean)) {
     hardConstraintQueries += 1;
     for (const row of result.results) {
-      const expectedBinding = entry.expected_bindings?.[row.item.id];
-      const selected = row.bindings.some((item) => item.verdict === "satisfies" && (!expectedBinding || item.binding.id === expectedBinding));
-      if (!selected) falsePasses += 1;
+      for (const selected of row.bindings.filter((candidate) => candidate.verdict === "satisfies")) {
+        if (!independentlySatisfies(selected.binding, row.item, entry.filters || {})) falsePasses += 1;
+      }
     }
   }
   for (const [operationId, bindingId] of Object.entries(entry.expected_bindings || {})) {
@@ -68,7 +90,24 @@ const report = {
   gates: fixture.gates,
   results: rows,
 };
+report.gates_status = report.gates_evaluable ? "evaluated" : "not_evaluable";
 console.log(JSON.stringify(report, null, 2));
+if (!report.gates_evaluable) {
+  console.warn(`WARNING: quality gates not evaluated (${hardConstraintQueries}/${fixture.gates.min_hard_constraint_queries} hard-constraint and ${noMatchCount}/${fixture.gates.min_no_match_queries} no-match queries). This run is a smoke check only.`);
+}
+if (process.env.GITHUB_STEP_SUMMARY) {
+  const gateLabel = report.gates_evaluable ? "evaluated" : "not evaluable — smoke check only";
+  const summary = [
+    "### Search evaluation",
+    "",
+    `- Acceptance gates: **${gateLabel}**`,
+    `- Hard-constraint fixtures: ${hardConstraintQueries}/${fixture.gates.min_hard_constraint_queries}`,
+    `- No-match fixtures: ${noMatchCount}/${fixture.gates.min_no_match_queries}`,
+    `- Recall@5: ${report.recall_at_5.toFixed(2)}; no-match abstention: ${report.no_match_abstention_rate.toFixed(2)}`,
+    "",
+  ].join("\n");
+  fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, summary, "utf8");
+}
 
 if (falsePasses > fixture.gates.false_hard_constraint_passes) process.exitCode = 1;
 if (report.gates_evaluable) {
