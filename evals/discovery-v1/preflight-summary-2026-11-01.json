@@ -1,0 +1,69 @@
+{
+  "date": "2026-11-01",
+  "scope": "contract/metering implementation and calibration; not model efficiency evaluation",
+  "contract_regression_tests_passed": 19,
+  "development_task_count": 3,
+  "model_trials_executed": 0,
+  "live_probe": {
+    "scope": "real MCP and HTTPS calibration; not a model efficiency trial",
+    "run": "discovery-live-20261101T123126116294Z",
+    "mcp_tool_names": [
+      "research.batch"
+    ],
+    "official_reads": [
+      {
+        "event_id": "action-80eb6b35d8c3469c80a968dc61999b41",
+        "status": "ok",
+        "http_status": 200,
+        "response_sha256": "ca14a45ba8d71cb840cdaa0e589e2d95251926173e4ee20243e62511998bac07"
+      },
+      {
+        "event_id": "action-64d29a54be0449299c0a112c5e162741",
+        "status": "ok",
+        "http_status": 200,
+        "response_sha256": "6e29653fc06885fc78ecbdf26e949721e9892055e876fe8b4c27a799bb8f2087"
+      }
+    ],
+    "find_apikey_matches": 1,
+    "sample_coordinate_observed": true,
+    "click_status": "ok",
+    "live_fetch": "passed",
+    "live_search": "blocked: no configured search provider key",
+    "atomic_actions": 4,
+    "all_started_actions_finished": true,
+    "response_hashes_match": true,
+    "read_only_response_contract": {
+      "contract_valid": true,
+      "completed_at_requested_level": true,
+      "factual_support": "requires_separate_source_adjudication",
+      "external_actions": 4,
+      "stop_reason": "requirements_met"
+    },
+    "comparison_gate": "blocked"
+  },
+  "comparison_inputs": {
+    "scope": "development packets only; no model trials performed",
+    "catalog_revision": "dedb559d257be35d",
+    "facts_identical": true,
+    "url_sets_identical": true,
+    "record_count": 26,
+    "fact_sha256": "ef3a68eddb20b69e7ef585330e33fb5c52dd767c145ba17b1e4a0ba95b55b72d",
+    "task_sha256": "b3c034da53cbf6c986fd886287ed6f84672b697eb379a048fc56fb05577d0a32",
+    "conditions": {
+      "facts.json": {
+        "sha256": "e10e41bb73b387c3077e945ae4395e3affde461592495dfc0441b52b2a3aaac1",
+        "bytes": 12923
+      },
+      "guided.json": {
+        "sha256": "8287e4396243a0664a1fe1f51cf480c43c6f9456e4337bc2f68017736d4c55f4",
+        "bytes": 13773
+      }
+    },
+    "all_packet_bytes_count_toward_model_input": true,
+    "cost_of_navigation_preparation_and_maintenance": "record separately in future trials"
+  },
+  "active_search_tool_probe": "503 Service Unavailable; not an observation of Tavily service availability",
+  "model_normal_and_failure_case_evaluation": "not_run",
+  "seoul_od_grid_join": "not_run",
+  "next_dependency": "Configure an observable search provider and pass real query calibration before controlled model trials."
+}

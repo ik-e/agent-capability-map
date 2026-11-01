@@ -1,0 +1,169 @@
+{
+  "scope": "development only; not executed model trials",
+  "tasks": [
+    {
+      "version": "discovery-eval-v1",
+      "task_id": "url-extraction-candidate",
+      "as_of": "2026-11-01T12:00:00Z",
+      "verification_level": "candidate",
+      "request": "공개 URL 본문을 Markdown으로 읽는 후보를 공식 문서에서 찾는다. 실제 실행 성공은 주장하지 않는다.",
+      "requirements": [
+        {
+          "id": "capability",
+          "statement": "공식 문서가 공개 URL 본문 추출을 설명한다.",
+          "stage": "candidate",
+          "evidence_types": [
+            "official_document"
+          ],
+          "on_unknown": "block",
+          "on_conflict": "block"
+        },
+        {
+          "id": "format",
+          "statement": "공식 문서가 Markdown 출력을 설명한다.",
+          "stage": "candidate",
+          "evidence_types": [
+            "official_document"
+          ],
+          "on_unknown": "block",
+          "on_conflict": "block"
+        }
+      ],
+      "preferences": [
+        {
+          "id": "simple",
+          "statement": "조건을 충족하면 연결이 단순한 후보를 선호",
+          "priority": 1
+        }
+      ],
+      "comparison_scope": {
+        "candidate_limit": 3,
+        "notes": "개발용 세 종류. 독립 holdout이 아니며 실제 연결·조인은 별도 과제."
+      },
+      "budget": {
+        "external_actions": 12,
+        "max_seconds": 300
+      },
+      "stop_rules": {
+        "required_ids": [
+          "capability",
+          "format"
+        ],
+        "allow_unverified_preferences": true
+      }
+    },
+    {
+      "version": "discovery-eval-v1",
+      "task_id": "url-extraction-no-auth",
+      "as_of": "2026-11-01T12:00:00Z",
+      "verification_level": "documentation",
+      "request": "공개 URL 본문을 Markdown으로 읽고 API 키 없이 이용할 수 있는 후보를 문서로 선택한다.",
+      "requirements": [
+        {
+          "id": "capability",
+          "statement": "공개 URL 본문의 Markdown 추출이 공식 문서로 확인된다.",
+          "stage": "documentation",
+          "evidence_types": [
+            "official_document"
+          ],
+          "on_unknown": "block",
+          "on_conflict": "block"
+        },
+        {
+          "id": "no_auth",
+          "statement": "지정한 공용 서비스의 무인증 이용 조건이 확인된다.",
+          "stage": "documentation",
+          "evidence_types": [
+            "official_document"
+          ],
+          "on_unknown": "block",
+          "on_conflict": "block"
+        }
+      ],
+      "preferences": [
+        {
+          "id": "simple",
+          "statement": "조건을 충족하면 연결이 단순한 후보를 선호",
+          "priority": 1
+        }
+      ],
+      "comparison_scope": {
+        "candidate_limit": 3,
+        "notes": "개발용 세 종류. 독립 holdout이 아니며 실제 연결·조인은 별도 과제."
+      },
+      "budget": {
+        "external_actions": 12,
+        "max_seconds": 300
+      },
+      "stop_rules": {
+        "required_ids": [
+          "capability",
+          "no_auth"
+        ],
+        "allow_unverified_preferences": true
+      }
+    },
+    {
+      "version": "discovery-eval-v1",
+      "task_id": "seoul-st-mapping",
+      "as_of": "2026-11-01T12:00:00Z",
+      "verification_level": "documentation",
+      "request": "서울 OD의 ST-* ID를 공식 좌표에 대응할 문서 근거를 확인한다. 접미사·이름 매칭과 실제 조인 성공 주장을 금지한다.",
+      "requirements": [
+        {
+          "id": "namespace",
+          "statement": "OD와 대여소 좌표의 동일 식별자 또는 공식 대응 근거",
+          "stage": "documentation",
+          "evidence_types": [
+            "official_document"
+          ],
+          "on_unknown": "block",
+          "on_conflict": "block"
+        },
+        {
+          "id": "temporal",
+          "statement": "OD와 좌표의 유효 시점 호환",
+          "stage": "documentation",
+          "evidence_types": [
+            "official_document"
+          ],
+          "on_unknown": "block",
+          "on_conflict": "block"
+        },
+        {
+          "id": "crs",
+          "statement": "대여소 원좌표계의 공식 근거",
+          "stage": "documentation",
+          "evidence_types": [
+            "official_document"
+          ],
+          "on_unknown": "block",
+          "on_conflict": "block"
+        }
+      ],
+      "preferences": [
+        {
+          "id": "simple",
+          "statement": "조건을 충족하면 연결이 단순한 후보를 선호",
+          "priority": 1
+        }
+      ],
+      "comparison_scope": {
+        "candidate_limit": 3,
+        "notes": "개발용 세 종류. 독립 holdout이 아니며 실제 연결·조인은 별도 과제."
+      },
+      "budget": {
+        "external_actions": 12,
+        "max_seconds": 300
+      },
+      "stop_rules": {
+        "required_ids": [
+          "namespace",
+          "temporal",
+          "crs"
+        ],
+        "allow_unverified_preferences": true
+      }
+    }
+  ]
+}

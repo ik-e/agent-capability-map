@@ -1,0 +1,210 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "const": "discovery-eval-v1"
+    },
+    "task_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "selected_candidate_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "candidate_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "requirement_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "verdict": {
+            "type": "string",
+            "enum": [
+              "satisfied",
+              "violated",
+              "unknown",
+              "conflicted"
+            ]
+          },
+          "evidence_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "candidate_id",
+          "requirement_id",
+          "verdict",
+          "evidence_ids"
+        ]
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "official_document",
+              "provider_response",
+              "execution_result"
+            ]
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "observed_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "subject_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "version": {
+            "type": "string",
+            "minLength": 1
+          },
+          "requirement_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "source_event_id": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "url",
+          "observed_at",
+          "subject_id",
+          "requirement_ids",
+          "source_event_id"
+        ]
+      }
+    },
+    "evaluated_requirement_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "unchecked_requirement_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "stages": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "candidate": {
+          "type": "string",
+          "enum": [
+            "passed",
+            "failed",
+            "blocked",
+            "not_run"
+          ]
+        },
+        "documentation": {
+          "type": "string",
+          "enum": [
+            "passed",
+            "failed",
+            "blocked",
+            "not_run"
+          ]
+        },
+        "live_response": {
+          "type": "string",
+          "enum": [
+            "passed",
+            "failed",
+            "blocked",
+            "not_run"
+          ]
+        },
+        "task": {
+          "type": "string",
+          "enum": [
+            "passed",
+            "failed",
+            "blocked",
+            "not_run"
+          ]
+        }
+      },
+      "required": [
+        "candidate",
+        "documentation",
+        "live_response",
+        "task"
+      ]
+    },
+    "stop_reason": {
+      "type": "string",
+      "enum": [
+        "requirements_met",
+        "evidence_insufficient",
+        "evidence_conflict",
+        "access_blocked",
+        "budget_exhausted",
+        "no_candidate_in_scope"
+      ]
+    },
+    "stop_event_id": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "version",
+    "task_id",
+    "selected_candidate_id",
+    "checks",
+    "evidence",
+    "evaluated_requirement_ids",
+    "unchecked_requirement_ids",
+    "stages",
+    "stop_reason",
+    "stop_event_id"
+  ]
+}

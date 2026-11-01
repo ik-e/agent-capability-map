@@ -1,0 +1,189 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "version": {
+      "const": "discovery-eval-v1"
+    },
+    "task_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "as_of": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "verification_level": {
+      "type": "string",
+      "enum": [
+        "candidate",
+        "documentation",
+        "live_response",
+        "task"
+      ]
+    },
+    "request": {
+      "type": "string",
+      "minLength": 1
+    },
+    "requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "statement": {
+            "type": "string",
+            "minLength": 1
+          },
+          "stage": {
+            "type": "string",
+            "enum": [
+              "candidate",
+              "documentation",
+              "live_response",
+              "task"
+            ]
+          },
+          "evidence_types": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "official_document",
+                "provider_response",
+                "execution_result"
+              ]
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "max_age_days": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "version": {
+            "type": "string",
+            "minLength": 1
+          },
+          "on_unknown": {
+            "const": "block"
+          },
+          "on_conflict": {
+            "const": "block"
+          }
+        },
+        "required": [
+          "id",
+          "statement",
+          "stage",
+          "evidence_types",
+          "on_unknown",
+          "on_conflict"
+        ]
+      },
+      "minItems": 1
+    },
+    "preferences": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "statement": {
+            "type": "string",
+            "minLength": 1
+          },
+          "priority": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "id",
+          "statement",
+          "priority"
+        ]
+      }
+    },
+    "comparison_scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "candidate_limit": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "notes": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "candidate_limit",
+        "notes"
+      ]
+    },
+    "budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "external_actions": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "max_seconds": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": [
+        "external_actions",
+        "max_seconds"
+      ]
+    },
+    "stop_rules": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "required_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "allow_unverified_preferences": {
+          "const": true
+        }
+      },
+      "required": [
+        "required_ids",
+        "allow_unverified_preferences"
+      ]
+    }
+  },
+  "required": [
+    "version",
+    "task_id",
+    "as_of",
+    "verification_level",
+    "request",
+    "requirements",
+    "preferences",
+    "comparison_scope",
+    "budget",
+    "stop_rules"
+  ]
+}
