@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object", "additionalProperties": false,
+  "required": ["id", "name", "purpose", "resource_type", "source_url", "status", "category_ids", "scope", "access", "license_status"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^res_[a-z0-9]+(?:_[a-z0-9]+)*$"},
+    "name": {"type": "string", "minLength": 1},
+    "purpose": {"type": "string", "minLength": 1},
+    "resource_type": {"enum": ["dataset", "document", "knowledge_base", "search_index", "directory"]},
+    "source_url": {"type": "string", "format": "uri", "pattern": "^https://"},
+    "status": {"enum": ["active", "beta", "deprecated", "archived", "unknown", "draft"]},
+    "category_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string"}},
+    "aliases": {"type": "array", "items": {"type": "string"}},
+    "scope": {"type": "string", "minLength": 1},
+    "access": {"enum": ["public", "key_required", "approval_required", "unknown"]},
+    "license_status": {"enum": ["confirmed", "unknown", "restricted"]},
+    "license_url": {"type": "string", "format": "uri", "pattern": "^https://"},
+    "reference_date": {"type": ["string", "null"]},
+    "update_notes": {"type": "string"},
+    "binding_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string"}}
+  }
+}

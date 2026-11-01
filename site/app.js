@@ -20,10 +20,21 @@ function renderCategories() {
   all.className = `category-button${state.selectedCategory ? "" : " active"}`;
   all.type = "button";
   all.setAttribute("aria-pressed", String(!state.selectedCategory));
-  all.innerHTML = `<span>전체 기능</span><span class="category-count">${state.index.items.length}</span>`;
+  all.innerHTML = `<span>전체 후보</span><span class="category-count">${state.index.items.length}</span>`;
   all.addEventListener("click", () => { state.selectedCategory = ""; renderCategories(); runSearch(); });
   container.append(all);
-  for (const category of state.browse.categories) {
+  const selected = state.browse.categories.find((c) => c.id === state.selectedCategory);
+  if (selected) {
+    for (const parentId of selected.parent_ids || []) {
+      const parent = state.browse.categories.find((c) => c.id === parentId);
+      const up = document.createElement("button");
+      up.type = "button"; up.className = "category-button"; up.textContent = `↑ ${parent.label}`;
+      up.addEventListener("click", () => { state.selectedCategory = parentId; renderCategories(); runSearch(); });
+      container.append(up);
+    }
+    const current = document.createElement("p"); current.textContent = selected.label; container.append(current);
+  }
+  for (const category of state.browse.categories.filter((c) => state.selectedCategory ? c.parent_ids?.includes(state.selectedCategory) : !c.parent_ids?.length)) {
     const button = document.createElement("button");
     button.type = "button";
     button.className = `category-button${state.selectedCategory === category.id ? " active" : ""}`;
@@ -59,7 +70,7 @@ function renderResults(outcome) {
       const className = !hasFilters ? "" : verdict === "satisfies" ? " good" : " unknown";
       return `<span class="chip${className}">${escapeText(label + transport + result)}</span>`;
     }).join("");
-    card.innerHTML = `<div class="card-top"><h3 class="card-title"><button type="button" class="card-title-button" aria-pressed="false">${escapeText(row.item.name)}</button></h3><span class="score">${row.points ? `점수 ${row.points}` : "분야 항목"}</span></div><p class="card-purpose">${escapeText(row.item.purpose)}</p><div class="chips">${chips}</div>`;
+    card.innerHTML = `<div class="card-top"><h3 class="card-title"><button type="button" class="card-title-button" aria-pressed="false">${escapeText(row.item.name)}</button></h3><span class="score">${row.item.record_kind === "information_resource" ? "정보원" : "실행 기능"} · ${row.points ? `점수 ${row.points}` : "분야 항목"}</span></div><p class="card-purpose">${escapeText(row.item.purpose)}</p><div class="chips">${chips}</div>`;
     card.querySelector(".card-title-button").addEventListener("click", () => selectOperation(row.item.id, card));
     list.append(card);
   }
@@ -83,6 +94,13 @@ async function selectOperation(id, selectedCard) {
     node.classList.toggle("selected", selected);
     node.querySelector(".card-title-button")?.setAttribute("aria-pressed", String(selected));
   });
+  const candidate = state.index.items.find((item) => item.id === id);
+  if (candidate?.record_kind === "information_resource") {
+    const resource = await getJson(`resources/${encodeURIComponent(id)}.json`);
+    const evidence = await Promise.all((resource.evidence_ids || []).map((e) => getJson(`evidence/${encodeURIComponent(e)}.json`)));
+    $("#detail-panel").innerHTML = `<article class="detail-content"><p class="eyebrow">정보원 · ${escapeText(id)}</p><h2>${escapeText(resource.name)}</h2><p>${escapeText(resource.purpose)}</p>${detailSection("범위·조건", `<p>${escapeText(resource.scope)}</p><p>접근: ${escapeText(resource.access)} · 이용조건: ${escapeText(resource.license_status)}</p>`)}<a href="${escapeText(resource.source_url)}" target="_blank" rel="noreferrer">공식 출처 ↗</a>${detailSection("근거", evidence.map((e) => `<p>${escapeText(e.claim_path)} · ${escapeText(e.verification_state)} · <a href="${escapeText(e.source_url)}" target="_blank" rel="noreferrer">${escapeText(e.source_locator || "출처")}</a></p>`).join(""))}</article>`;
+    return;
+  }
   const operation = await getJson(`operations/${encodeURIComponent(id)}.json`);
   const filters = Object.fromEntries(Object.entries(state.filters).filter(([, value]) => value));
   const matchingRow = searchCatalog(state.index.items, state.query, filters, state.selectedCategory, 20).results.find((row) => row.item.id === id);
@@ -145,7 +163,7 @@ async function showBinding(binding) {
 function runSearch() {
   if (!state.index) return;
   state.query = $("#query").value.trim();
-  state.filters = { resource_kind: $("#kind-filter").value, transport: $("#transport-filter").value, auth_schemes: $("#auth-filter").value };
+  state.filters = { record_kind: $("#record-filter").value, resource_kind: $("#kind-filter").value, transport: $("#transport-filter").value, auth_schemes: $("#auth-filter").value };
   const filters = Object.fromEntries(Object.entries(state.filters).filter(([, value]) => value).map(([key, value]) => [key, key === "auth_schemes" ? value : value]));
   const outcome = searchCatalog(state.index.items, state.query, filters, state.selectedCategory, state.query ? 5 : 20);
   renderResults(outcome);
@@ -153,7 +171,8 @@ function runSearch() {
 
 async function initialize() {
   try {
-    const [manifest, index, browse] = await Promise.all([getJson("manifest.json"), getJson("search/operations.json"), getJson("browse/index.json")]);
+    const manifest = await getJson("manifest.json");
+    const [index, browse] = await Promise.all([getJson(manifest.search_index), getJson(manifest.browse_index)]);
     state.index = index;
     state.browse = browse;
     populateFilters(index.items);
@@ -193,8 +212,8 @@ function populateFilters(items) {
   }
 }
 
-$("#search-form").addEventListener("submit", (event) => { event.preventDefault(); state.selectedCategory = ""; renderCategories(); runSearch(); });
-for (const selector of ["#kind-filter", "#transport-filter", "#auth-filter"]) $(selector).addEventListener("change", runSearch);
+$("#search-form").addEventListener("submit", (event) => { event.preventDefault(); runSearch(); });
+for (const selector of ["#record-filter", "#kind-filter", "#transport-filter", "#auth-filter"]) $(selector).addEventListener("change", runSearch);
 let queryTimer;
 $("#query").addEventListener("input", () => {
   clearTimeout(queryTimer);

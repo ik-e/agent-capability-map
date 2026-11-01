@@ -29,6 +29,7 @@
         <button type="submit">검색</button>
       </form>
       <div class="filter-row" role="group" aria-label="검색 조건">
+        <label>후보 <select id="record-filter"><option value="">정보원·기능 모두</option><option value="information_resource">정보원</option><option value="operation">실행 기능</option></select></label>
         <label>유형 <select id="kind-filter"><option value="">모든 유형</option><option value="http_api">HTTP API</option><option value="mcp_server">MCP 서버</option><option value="sdk">SDK</option></select></label>
         <label>전송 <select id="transport-filter"><option value="">모든 전송</option><option value="http">HTTP</option><option value="stdio">stdio</option><option value="streamable_http">Streamable HTTP</option></select></label>
         <label>인증 <select id="auth-filter"><option value="">상관없음</option><option value="none">인증 불필요</option><option value="bearer">Bearer token</option><option value="api_key">API key</option></select></label>

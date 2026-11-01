@@ -79,9 +79,16 @@ export function searchCatalog(items, query, filters = {}, category = "", limit =
   const candidates = [];
   for (const item of items) {
     if (category && !(item.category_ids || []).includes(category)) continue;
+    if (filters.record_kind && (item.record_kind || "operation") !== filters.record_kind) continue;
     const points = score(item, query);
     if (query && points <= 0) continue;
-    const bindings = (item.binding_summaries || []).map((binding) => ({ binding, verdict: bindingVerdict(binding, filters, item) }));
+    const bindingFilters = Object.fromEntries(Object.entries(filters).filter(([key]) => key !== "record_kind"));
+    if (item.record_kind === "information_resource") {
+      if (Object.values(bindingFilters).some(Boolean)) continue;
+      candidates.push({ item, points, bindings: [] });
+      continue;
+    }
+    const bindings = (item.binding_summaries || []).map((binding) => ({ binding, verdict: bindingVerdict(binding, bindingFilters, item) }));
     const passing = bindings.filter((row) => row.verdict === "satisfies");
     const possible = bindings.filter((row) => row.verdict !== "violates");
     if (Object.values(filters).some(Boolean) && !possible.length) continue;

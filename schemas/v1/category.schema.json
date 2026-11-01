@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "array",
+  "items": {
+    "type": "object", "additionalProperties": false,
+    "required": ["id", "label"],
+    "properties": {
+      "id": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
+      "label": {"type": "string", "minLength": 1},
+      "parent_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string"}}
+    }
+  }
+}

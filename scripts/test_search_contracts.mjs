@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {searchCatalog} from '../site/search-core.js';
+const index=JSON.parse(fs.readFileSync(new URL('../site/catalog/v1/search/index.json',import.meta.url),'utf8'));
+assert(searchCatalog(index.items,'geocoding',{},'spatial-analysis').results.some(r=>r.item.id==='op_search_geocoding'));
+const fixture={id:'res_fixture',record_kind:'information_resource',name:'정보원 시험',purpose:'검사 전용',category_ids:['research'],binding_summaries:[]};
+assert.equal(searchCatalog([fixture],'',{record_kind:'information_resource'}).results.length,1);
+assert.equal(searchCatalog([fixture],'',{transport:'stdio'}).results.length,0);
+assert.equal(searchCatalog(index.items,'',{record_kind:'information_resource'}).results.length,0);
+const operation={id:'op_fixture',name:'fixture',purpose:'fixture',category_ids:[],binding_summaries:[{id:'a',transport:'stdio',auth_schemes:['bearer'],claim_states:{'/transport':'verified','/auth_schemes':'verified'}},{id:'b',transport:'http',auth_schemes:['none'],claim_states:{'/transport':'verified','/auth_schemes':'verified'}}]};
+assert.equal(searchCatalog([operation],'',{transport:'stdio',auth_schemes:'none'}).abstain,true,'Never combine constraints across bindings');
+operation.binding_summaries[0].claim_states['/transport']='unknown';
+assert.equal(searchCatalog([operation],'',{transport:'stdio'}).results[0].bindings[0].verdict,'unknown');
+console.log('Search contracts passed: DAG ancestry, resource separation, no cross-binding false pass, unknown evidence.');

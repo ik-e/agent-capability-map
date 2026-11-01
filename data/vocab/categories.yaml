@@ -1,20 +1,36 @@
+- id: research
+  label: 정보와 근거 찾기
+- id: development
+  label: 개발 작업 수행하기
+- id: spatial-analysis
+  label: 장소·공간 데이터 분석하기
 - id: weather
   label: 날씨 데이터
+  parent_ids: [research, spatial-analysis]
 - id: repository
   label: 저장소 정보
+  parent_ids: [development]
 - id: issue-tracking
   label: 이슈 관리
+  parent_ids: [development]
 - id: pull-requests
   label: 풀 리퀘스트
+  parent_ids: [development]
 - id: ai-generation
   label: AI 모델 생성
+  parent_ids: [development]
 - id: web-research
   label: 웹 조사
+  parent_ids: [research]
 - id: mcp-discovery
   label: MCP 서버 발견
+  parent_ids: [research, development]
 - id: model-discovery
   label: 모델·데이터셋 발견
+  parent_ids: [research]
 - id: document-retrieval
   label: 문서 검색·RAG
+  parent_ids: [research, development]
 - id: geocoding
   label: 지오코딩
+  parent_ids: [spatial-analysis]
