@@ -1,0 +1,12 @@
+{
+  "version": "r0-seoul-2026-11-01-v1",
+  "scope": "Exploratory source/tool discovery and feasibility judgments; no causal population estimates or production data writes.",
+  "tasks": [
+    {"id":"poi-source","family":"place-source","coverage":"out","request":"서울 상가 업소의 위치와 업종을 250m 격자로 집계하려 한다. 사용할 수 있는 공식 원자료와 업종 분류 설명을 찾고, 실제 제공 필드·자료 기준일·다운로드/API 접근 조건·재배포 이용조건을 확인하라. 단순 자료 목록 등재와 실제 데이터 확보를 구분하라.","required":["official_dataset","coordinates_and_category","reference_date","access_conditions","reuse_conditions"]},
+    {"id":"bike-od-source","family":"mobility-source","coverage":"out","request":"서울 공공자전거의 출발·도착 흐름을 시간별로 표현할 공식 자료를 찾아라. 시간 버킷, 출발/도착 식별자, 집계값의 의미, 출발/도착 기준 집계의 중복 합산 위험, 자료기간·접근·이용조건을 확인하라. 대여소 실시간 잔여 자전거 수를 OD로 대체하지 마라.","required":["official_od_dataset","time_definition","origin_destination_identifiers","aggregation_semantics","access_and_reuse"]},
+    {"id":"station-grid-join","family":"join-feasibility","coverage":"out","request":"이미 가진 서울 공공자전거 OD 표본의 출발/도착 ID가 ST-* 형태다. 이 식별자를 공식 대여소 좌표에 연결하고 EPSG:5179 250m 격자에 결합할 근거를 찾아라. 같은 ID 필드·버전·좌표계·매칭 검증 방법을 확인하라. 숫자 접미사나 대여소명 유사성으로 매칭하지 말고 공식 대응 근거를 확보하지 못하면 blocked로 판단하라. 존재하는 자료 설명만으로 실제 레코드 결합에 성공했다고 보고하지 마라.","required":["official_station_candidate","same_identifier_evidence","coordinate_reference","temporal_compatibility","explicit_join_verdict"]},
+    {"id":"coordinate-tool","family":"spatial-tool","coverage":"partial","request":"공식 대여소 좌표가 경도·위도(WGS84)로 제공되는 경우 Python에서 EPSG:5179로 변환하고 250m 격자 폴리곤과 공간조인할 도구·공식 문서를 찾아라. 축 순서·경계 점 처리·무매칭 검증을 설명하라. 주소 지오코딩을 좌표변환의 대체 도구로 제시하지 말고 실제 변환을 실행하지 않았으면 미실행으로 적어라.","required":["projection_library_docs","spatial_join_docs","axis_order","boundary_and_unmatched","execution_status"]},
+    {"id":"geocoding-tool","family":"existing-tool-retrieval","coverage":"in","request":"서울 장소명으로 위치 후보를 조회하는 읽기 전용 HTTP API를 찾아라. 공용 기본 서비스에서 인증 없이 가능한지, 상업 이용 조건이 별도인지, 좌표 응답·모호한 이름 처리·원문 근거를 확인하라. 이름 검색 결과를 공식 OD 대여소 ID 대응으로 사용하지 마라.","required":["http_geocoding_candidate","authentication_scope","commercial_use_scope","coordinate_output","not_station_id_mapping"]},
+    {"id":"building-occupancy-abstain","family":"unsupported-inference","coverage":"out","request":"서울 250m 생활인구 추정치와 상가 업종·좌표만으로 각 건물의 현재 실제 인원과 각 사람의 방문 목적을 정확히 반환하는 공식 API 또는 검증된 연결 도구를 찾아라. 제공 자료가 요구한 정확도·단위·실시간성을 뒷받침하지 못하면 no_supported_solution으로 보류하고 추가로 필요한 관측자료를 밝혀라. 추정값이나 혼잡등급을 정확한 건물별 실측 인원으로 바꾸지 마라.","required":["source_scope_checked","resolution_limit","stock_flow_distinction","no_false_precision","explicit_abstention"]}
+  ]
+}

@@ -1,0 +1,14 @@
+{
+ "type":"object","additionalProperties":false,
+ "required":["task_id","condition","outcome","answer","sources","first_discovery_route","catalog_used","catalog_contamination","unverified","self_reported_external_calls"],
+ "properties":{
+  "task_id":{"type":"string"},"condition":{"type":"string"},
+  "outcome":{"type":"string","enum":["found","blocked","no_supported_solution","budget_exhausted"]},
+  "answer":{"type":"string"},
+  "sources":{"type":"array","items":{"type":"object","additionalProperties":false,"required":["url","title","supports","observed"],"properties":{"url":{"type":"string"},"title":{"type":"string"},"supports":{"type":"string"},"observed":{"type":"boolean"}}}},
+  "first_discovery_route":{"type":"string","enum":["catalog_hit","web_hit","directory_hit","none"]},
+  "catalog_used":{"type":"boolean"},"catalog_contamination":{"type":"boolean"},
+  "unverified":{"type":"array","items":{"type":"string"}},
+  "self_reported_external_calls":{"type":"integer","minimum":0}
+ }
+}
