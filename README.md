@@ -26,12 +26,14 @@ python -m http.server 8000 --directory site
 
 - `data/services/<service-id>/service.yaml`: Service·Integration·Binding
 - `data/operations/`: 재사용 가능한 의미 기능
-- `data/resources/`: 정보원 정본(현재 0건). active 항목은 출처·범위·접근·이용조건 Evidence 필요
+- `data/resources/`: 정보원 정본(메타 정보원 2건·선택한 개별 자료 1건). active 항목은 출처·범위·접근·이용조건 Evidence 필요
 - `data/evidence/`: 필드 주장의 출처와 검증 기록
 - `schemas/v1/`: JSON Schema 계약
 - `site/catalog/v1/`: manifest, 검색·탐색 인덱스, 개별 상세, 일괄 JSONL
 
-사람과 AI는 같은 목적 분류 DAG와 후보 인덱스를 사용합니다. `manifest.search_index`의 `search/index.json`은 정보원·실행 기능을 구분하며, 기존 `search/operations.json`은 기능 전용 호환 경로로 유지합니다. 분류 안에서 검색하거나 전체 후보로 돌아갈 수 있습니다. 하나의 후보는 여러 상위 목적에 속할 수 있습니다. 현재는 R0 시작 상태를 유지해 정보원 항목은 등록하지 않았습니다. [개정 계획](docs/api-capability-map-github-pages-plan.md)과 [공개 검토 요약](docs/internet-map-review-summary-2026-11-01.md)을 참고하세요.
+사람과 AI는 같은 목적 분류 DAG와 후보 인덱스를 사용합니다. `manifest.search_index`의 `search/index.json`은 정보원·실행 기능을 구분하며, 기존 `search/operations.json`은 기능 전용 호환 경로로 유지합니다. 분류 안에서 검색하거나 전체 후보로 돌아갈 수 있습니다. 하나의 후보는 여러 상위 목적에 속할 수 있습니다. 공공데이터포털·서울 열린데이터광장에 실제 탐색 방법을 기록하고, OD 문서가 직접 참조하는 따릉이 대여소 마스터만 선택 등록했습니다. 포털 전체 하위 목록과 원자료는 복제하지 않습니다. 과거 R0의 동결 입력·결과는 유지합니다. [개정 계획](docs/api-capability-map-github-pages-plan.md)과 [수집 범위 검토](docs/internet-map-scope-review-2026-11-03.md)를 참고하세요.
+
+`site/catalog/v1/index.html`은 JavaScript 없이 분류·자료·근거로 이동하는 생성 페이지입니다. manifest의 `entrypoints`에는 절대 HTTPS 진입 URL도 제공합니다. 다른 주소에 게시할 때는 `scripts/build_catalog.py --public-base-url https://example.org/catalog/v1/`로 지정합니다. 정보원 상세는 `update_notes`의 탐색 방법·한계와 주장별 확인 시각을 사람용 화면과 JSON에서 함께 제공합니다. 문서 확인은 실제 API 실행이나 좌표 조인 성공을 뜻하지 않습니다.
 
 현재 표본은 7개 Service와 16개 Operation입니다. GitHub, Open-Meteo, OpenAI에 더해 MCP Registry, Context7, Tavily, Hugging Face Hub를 포함하며, MCP 서버 발견·최신 개발 문서 조회·웹 검색과 URL 추출·모델/데이터셋 탐색·장소 지오코딩을 다룹니다. 아직 계획의 20~50개 Operation 목표에는 미달하며, 각 레코드는 공식 출처 Evidence를 붙여 확장합니다.
 

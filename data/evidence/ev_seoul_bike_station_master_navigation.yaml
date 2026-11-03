@@ -1,0 +1,11 @@
+id: ev_seoul_bike_station_master_navigation
+subject_id: res_seoul_bike_station_master
+claim_path: /scope
+source_url: https://data.seoul.go.kr/dataList/OA-21229/F/1/datasetView.do
+source_type: official_docs
+source_grade: A
+verification_state: verified
+verified_at: '2026-11-03T02:20:19.638099+00:00'
+source_locator: OD 설명의 대여소 ID 정보→OA-21235 명시적 참조
+verification_method: 공식 HTML 직접 조회; action action-16e655ea8f134c2abab30e1d25d83562;
+  response_sha256 6d68f209ea25c3bbb073e7a424f24a52de75a1e64cee8e819307e068990e1c96

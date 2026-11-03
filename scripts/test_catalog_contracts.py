@@ -9,6 +9,7 @@ import sys
 import tempfile
 import unittest
 import yaml
+from html.parser import HTMLParser
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -43,8 +44,8 @@ class CatalogContracts(unittest.TestCase):
         self.assertIn("unknown parent", self.build(success=False))
 
     def test_resource_needs_evidence_and_has_separate_detail(self):
-        folder = self.root / "data/resources"; folder.mkdir()
-        resource = {"id":"res_contract_fixture","name":"Fixture","purpose":"Contract fixture only","resource_type":"dataset","source_url":"https://example.invalid/data","status":"active","category_ids":["research"],"scope":"Synthetic test data","access":"unknown","license_status":"unknown"}
+        folder = self.root / "data/resources"; folder.mkdir(exist_ok=True)
+        resource = {"id":"res_contract_fixture","name":"<script>Fixture</script>","purpose":"Contract fixture only","resource_type":"dataset","source_url":"https://example.invalid/data","status":"active","category_ids":["research"],"scope":"Synthetic test data","access":"unknown","license_status":"unknown"}
         (folder / "fixture.yaml").write_text(yaml.safe_dump(resource), encoding="utf8")
         self.assertIn("missing Evidence", self.build(success=False))
         for n, claim in enumerate(("/source_url", "/scope", "/access", "/license_status")):
@@ -58,6 +59,34 @@ class CatalogContracts(unittest.TestCase):
         self.assertTrue(all(r["record_kind"] == "operation" for r in legacy["items"]))
         detail = json.loads((generated / "resources/res_contract_fixture.json").read_text(encoding="utf8"))
         self.assertEqual(len(detail["evidence_ids"]), 4)
+        page = (generated / "resources/res_contract_fixture.html").read_text(encoding="utf8")
+        self.assertIn("&lt;script&gt;Fixture&lt;/script&gt;", page)
+        self.assertNotIn("<script>", page)
+
+    def test_static_navigation_absolute_entrypoints_and_evidence_links(self):
+        self.build()
+        generated = self.root / "site/catalog/v1"
+        base = "https://ik-e.github.io/agent-capability-map/catalog/v1/"
+        manifest = json.loads((generated / "manifest.json").read_text(encoding="utf8"))
+        for url in manifest["entrypoints"].values():
+            self.assertTrue(url.startswith(base))
+            self.assertTrue((generated / url.removeprefix(base)).is_file(), url)
+        class Links(HTMLParser):
+            def __init__(self): super().__init__(); self.urls=[]; self.scripts=0
+            def handle_starttag(self, tag, attrs):
+                if tag == "script": self.scripts+=1
+                if tag == "a": self.urls.append(dict(attrs).get("href", ""))
+        for path in generated.rglob("*.html"):
+            parser = Links(); parser.feed(path.read_text(encoding="utf8"))
+            self.assertEqual(parser.scripts, 0)
+            for url in parser.urls:
+                self.assertTrue(url.startswith("https://"), url)
+                if url.startswith(base): self.assertTrue((generated / url.removeprefix(base)).is_file(), url)
+        index = (generated / "index.html").read_text(encoding="utf8")
+        self.assertIn("res_seoul_open_data_catalog.html", index)
+        master = (generated / "resources/res_seoul_bike_station_master.html").read_text(encoding="utf8")
+        self.assertIn("주장별 근거", master)
+        self.assertIn("실제 ST-* 값", master)
 
 if __name__ == "__main__":
     unittest.main()

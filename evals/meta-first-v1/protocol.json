@@ -1,0 +1,28 @@
+{
+  "version": "meta-first-dev-v1",
+  "kind": "operator-led developmental route inspection",
+  "baseline_git_revision": "e3a7fec",
+  "baseline_catalog_revision": "dedb559d257be35d",
+  "scope": "Two official discovery portals; no full child-list import or source dataset replication",
+  "tasks": [
+    {"id": "META-POI", "goal": "Find an official route to Seoul place/business data and inspect coverage, coordinate fields, reference date and use conditions", "required": ["official_candidate", "coverage", "coordinates", "reference_date", "usage_terms"]},
+    {"id": "META-OD", "goal": "Find an official route to Seoul bike trip data and station ID-to-location documentation; do not replace official ID correspondence with name matching", "required": ["trip_source", "station_source", "official_id_correspondence", "reference_date", "coordinate_reference_system"]},
+    {"id": "META-GRID", "goal": "Find official documentation of coordinate reference and 250m grid definition for a defensible later join", "required": ["coordinate_reference_system", "grid_definition", "official_join_basis"]}
+  ],
+  "starting_urls": ["https://www.data.go.kr/", "https://data.seoul.go.kr/"],
+  "allowed_hosts": ["www.data.go.kr", "data.go.kr", "data.seoul.go.kr", "www.data.seoul.go.kr"],
+  "budget": {"atomic_actions": 30, "seconds": 600, "timeout_seconds": 20, "basis": "Initial development cap, not a measured optimum"},
+  "rules": [
+    "Follow actually observed links and search forms; disclose any preknown endpoint separately",
+    "Record source event IDs and response artifacts for each supported claim",
+    "HTTP 200 alone does not verify functionality, coordinates or license",
+    "Missing, blocked, uninspected and contradicted are distinct outcomes",
+    "Candidate/documentation/live_response/join stages are separate",
+    "No actual join without official ID, time and coordinate-system evidence",
+    "Record only observable requests, bytes and time; model-token and model-performance metrics are not available in this operator-led inspection",
+    "This is development, not a holdout or M-versus-M+D efficiency comparison"
+  ],
+  "management_log_fields": ["activity", "started_at", "finished_at", "elapsed_seconds", "artifacts", "notes"],
+  "stop": ["budget_exhausted", "time_exhausted", "documented_block_or_unmet_requirement", "route_inspection_complete"],
+  "next_gate": "Select individual resources only from observed bottlenecks and official support; fix fresh tasks and calibrated metering before controlled comparison"
+}

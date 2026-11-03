@@ -1,0 +1,11 @@
+id: ev_seoul_open_data_catalog_license_status
+subject_id: res_seoul_open_data_catalog
+claim_path: /license_status
+source_url: https://data.seoul.go.kr/etc/openInfo.do
+source_type: official_docs
+source_grade: A
+verification_state: unverified
+verified_at: '2026-11-03T02:17:14.494225+00:00'
+source_locator: 일반 이용정책은 개별 데이터의 이용허락 확인을 요구함; 전체 하위 자료의 통합 이용허락은 미확정
+verification_method: 공식 HTML 직접 조회·본문 확인; action action-6f77f045bbf34f958d51566bc06899bb;
+  response_sha256 20f1695dfcd65d97a444b8114a0f3eb6429a7311a7863c4fb855f1bd1b0cd965

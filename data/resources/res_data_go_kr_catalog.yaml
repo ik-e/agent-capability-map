@@ -1,0 +1,26 @@
+id: res_data_go_kr_catalog
+name: 공공데이터포털 데이터 탐색
+purpose: 국내 공식 공공데이터에서 POI·상가·시설 데이터와 API 후보를 찾고 개별 이용조건을 확인하는 출발점
+resource_type: directory
+source_url: https://www.data.go.kr/
+status: active
+category_ids:
+- research
+- spatial-analysis
+scope: 국내 공공기관의 파일·API 목록 탐색. 포털의 공개 목록·가이드 접근을 뜻하며 개별 API의 무인증 실행이나 모든 장소·건물 수록을
+  보장하지 않는다.
+access: public
+license_status: unknown
+license_url: https://www.data.go.kr/ugs/selectPortalPolicyView.do#use_stplat
+reference_date: '2026-11-03'
+aliases:
+- data.go.kr
+- 공공데이터
+- POI
+- 상가
+- 상권정보
+update_notes: '탐색: 데이터목록에서 데이터명·기관·키워드로 검색한다. 홈페이지 SearchAction의 공식 경로 https://www.data.go.kr/tcs/dss/selectDataSetList.do?keyword={검색어}
+  에 URL 인코딩한 검색어를 넣는다. 개발 조회어: 소상공인시장진흥공단 상가 상권정보. 상세에서 제공기관·기준일·좌표 설명·비용·이용허락범위를
+  각각 확인한다. 이용가이드 https://www.data.go.kr/ugs/selectPublicDataUseGuideView.do 및 활용방법
+  https://www.data.go.kr/ugs/selectPublicDataUseGuideMetView.do 참고. 목록 공개와 API 인증키/승인
+  필요를 구분한다. 포털 전체에 동일한 이용조건을 적용하지 않는다.'

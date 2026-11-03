@@ -1,0 +1,12 @@
+id: ev_seoul_open_data_catalog_navigation
+subject_id: res_seoul_open_data_catalog
+claim_path: /update_notes
+source_url: https://data.seoul.go.kr/dataList/datasetList.do?datasetKind=1&searchValue=%EA%B3%B5%EA%B3%B5%EC%9E%90%EC%A0%84%EA%B1%B0+%EB%8C%80%EC%97%AC%EC%9D%B4%EB%A0%A5
+source_type: official_docs
+source_grade: A
+verification_state: verified
+verified_at: '2026-11-03T02:19:36.551448+00:00'
+source_locator: 실제 searchValue GET 결과와 raw HTML의 goView data-rel; 입력 경로 관측이며 안정된 공개
+  검색 API 보증 아님
+verification_method: 공식 HTML 직접 조회; action action-0af8a66766e14b66a84b74017ad89bdc;
+  response_sha256 f10e3e279d3efab5b24f9a035db8aab99cceb5a3d2b3ebff7861840fd4ec388f

@@ -1,0 +1,11 @@
+id: ev_seoul_bike_station_master_license_status
+subject_id: res_seoul_bike_station_master
+claim_path: /license_status
+source_url: https://data.seoul.go.kr/dataList/OA-21235/S/1/datasetView.do
+source_type: official_docs
+source_grade: A
+verification_state: verified
+verified_at: '2026-11-03T02:20:38.354893+00:00'
+source_locator: '이용허락범위: 공공누리 1유형(출처표시, 상업적 이용 및 변경 가능)'
+verification_method: 공식 HTML 직접 조회·본문 확인; action action-8a2d8040d4a64864ac4feb78b0a5896d;
+  response_sha256 4de2e44ab05483b3ef9c81808dc685b44e149d57af947346ffce75b1a5176720

@@ -1,0 +1,11 @@
+id: ev_data_go_kr_catalog_navigation
+subject_id: res_data_go_kr_catalog
+claim_path: /update_notes
+source_url: https://www.data.go.kr/
+source_type: official_docs
+source_grade: A
+verification_state: verified
+verified_at: '2026-11-03T02:18:31.045904+00:00'
+source_locator: 홈페이지 SearchAction urlTemplate 및 메뉴; 검색어는 개발 과제 입력이며 효율 우위 주장 아님
+verification_method: 공식 HTML 직접 조회; action action-4abd758cb7a149218bb1e9ac7b0b30f6;
+  response_sha256 b162fed85fbaf83a86911fb7086e6749fbc75bb3c63089fe5c4f89a67c2c217f

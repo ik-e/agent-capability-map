@@ -11,6 +11,8 @@ import re
 import shutil
 import subprocess
 import sys
+from html import escape
+from urllib.parse import urlsplit
 from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
@@ -94,7 +96,12 @@ def pointer_value(subject: Any, pointer: str, evidence_id: str) -> Any:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, default=OUTPUT, help="Generated catalog directory")
+    parser.add_argument("--public-base-url", default="https://ik-e.github.io/agent-capability-map/catalog/v1/", help="Absolute HTTPS catalog URL for machine entrypoints")
     args = parser.parse_args()
+    public_base = args.public_base_url.rstrip("/") + "/"
+    parsed_base = urlsplit(public_base)
+    if parsed_base.scheme != "https" or not parsed_base.hostname or parsed_base.username or parsed_base.password or parsed_base.query or parsed_base.fragment:
+        raise CatalogError("public base URL must be an absolute HTTPS URL without credentials, query or fragment")
     output = args.output.resolve()
     if not output.is_relative_to((ROOT / "site").resolve()) or output == (ROOT / "site").resolve():
         raise CatalogError("generated output must be a child directory of site/")
@@ -428,9 +435,35 @@ def main() -> int:
         "detail_patterns": {"operation": "operations/{id}.json", "information_resource": "resources/{id}.json", "binding": "bindings/{id}.json", "evidence": "evidence/{id}.json"},
         "bulk_catalog": "bulk/catalog.jsonl",
         "bulk_catalog_default_for_queries": False,
+        "entrypoints": {"manifest": public_base + "manifest.json", "browse": public_base + "browse/index.json", "search": public_base + "search/index.json", "static_navigation": public_base + "index.html"},
     }
     write_json(output / "manifest.json", manifest)
-    print(f"Catalog generated: {output} ({len(search_rows)} searchable operations; revision {revision})")
+
+    def html_page(title: str, body: str) -> str:
+        return '<!doctype html><html lang="ko"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>' + escape(title) + '</title><body><main><h1>' + escape(title) + '</h1>' + body + '</main></body></html>\n'
+
+    # Generated from the same records as JSON; no separate editorial truth or JS required.
+    navigation = '<p>정적 탐색 목록. 후보 발견·문서 확인·실제 실행은 별개입니다.</p><p><a href="' + escape(public_base + 'manifest.json', quote=True) + '">기계 조회 manifest</a></p>'
+    navigation += '<p>리비전: ' + escape(revision) + '</p>'
+    for category in categories:
+        rows = [row for row in search_rows if category["id"] in row["category_ids"]]
+        navigation += '<section><h2>' + escape(category["label"]) + '</h2><ul>'
+        for row in rows:
+            folder = 'resources' if row["record_kind"] == 'information_resource' else 'operations'
+            suffix = '.html' if folder == 'resources' else '.json'
+            navigation += '<li><a href="' + escape(public_base + folder + '/' + row['id'] + suffix, quote=True) + '">' + escape(row['name']) + '</a> — ' + escape(row['purpose']) + '</li>'
+        navigation += '</ul></section>'
+    (output / 'index.html').write_text(html_page('인터넷 지도 정적 탐색', navigation), encoding='utf8')
+    for resource in resources.values():
+        body = '<p>' + escape(resource['purpose']) + '</p><h2>범위와 조건</h2><p>' + escape(resource['scope']) + '</p>'
+        body += '<p>접근: ' + escape(resource['access']) + ' · 이용조건: ' + escape(resource['license_status']) + ' · 자료 참조일: ' + escape(resource.get('reference_date') or '미기록') + '</p>'
+        body += '<h2>탐색 방법과 한계</h2><p>' + escape(resource.get('update_notes', '미기록')) + '</p>'
+        body += '<p><a href="' + escape(resource['source_url'], quote=True) + '">공식 출처</a> · <a href="' + escape(public_base + 'resources/' + resource['id'] + '.json', quote=True) + '">JSON 상세</a></p><h2>주장별 근거</h2><ul>'
+        for entry in evidence_by_subject[resource['id']]:
+            body += '<li>' + escape(entry['claim_path']) + ' · ' + escape(entry['verification_state']) + ' · 확인 시각: ' + escape(entry.get('verified_at', '미기록')) + ' · <a href="' + escape(entry['source_url'], quote=True) + '">' + escape(entry.get('source_locator', '출처')) + '</a> · <a href="' + escape(public_base + 'evidence/' + entry['id'] + '.json', quote=True) + '">근거 JSON</a></li>'
+        body += '</ul><p>문서·메타정보 확인은 실제 API 실행이나 조인 성공을 뜻하지 않습니다.</p><a href="' + escape(public_base + 'index.html', quote=True) + '">탐색 목록</a>'
+        (output / 'resources' / (resource['id'] + '.html')).write_text(html_page(resource['name'], body), encoding='utf8')
+    print(f"Catalog generated: {output} ({len(search_rows)} searchable candidates; revision {revision})")
     return 0
 
 
